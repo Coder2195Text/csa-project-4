@@ -1,0 +1,6 @@
+{
+  "anthem": {
+    "subtitle": "sounds.america.anthem",
+    "sounds": [{ "name": "america:anthem", "stream": true }]
+  }
+}

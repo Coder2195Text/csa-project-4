@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "america",
+  "version": "${version}",
+  "name": "America++",
+  "description": "This is a mod that allows you to enjoy America, especially your 2nd amendment rights.",
+  "authors": ["Me!"],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/america/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["mod.coder2195.america.AmericaMod"],
+    "fabric-datagen": ["mod.coder2195.america.AmericaModDataGenerator"]
+  },
+  "mixins": ["america.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.15.3",
+    "minecraft": "~1.20.4",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
