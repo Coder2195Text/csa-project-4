@@ -18,10 +18,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
   @Override
   public void generate(RecipeExporter exporter) {
     // TODO Auto-generated method stub
-    ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.BULLET, 9).pattern("##W")
-        .input('#', Items.COPPER_INGOT).input('W', Items.IRON_INGOT)
+    ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.BULLET, 9).pattern("G#W")
+        .input('#', Items.COPPER_INGOT).input('W', Items.IRON_INGOT).input('G', Items.GUNPOWDER)
         .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
-        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT)).offerTo(exporter, "bullet");
+        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+        .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
+        .offerTo(exporter, "bullet");
   }
 
 }

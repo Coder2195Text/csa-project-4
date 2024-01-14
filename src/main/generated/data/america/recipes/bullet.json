@@ -5,12 +5,15 @@
     "#": {
       "item": "minecraft:copper_ingot"
     },
+    "G": {
+      "item": "minecraft:gunpowder"
+    },
     "W": {
       "item": "minecraft:iron_ingot"
     }
   },
   "pattern": [
-    "##W"
+    "G#W"
   ],
   "result": {
     "count": 9,
