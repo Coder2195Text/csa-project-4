@@ -5,6 +5,7 @@ import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.MusicDiscItem;
@@ -17,9 +18,15 @@ public class ModItems {
   public static final Item BULLET = registerItem("bullet", new Item(new FabricItemSettings()));
   public static final Item ANTHEM_DISC = registerItem("anthem_disc",
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
+  public static final Item BURGER = registerItem("burger",
+      new Item(new FabricItemSettings().food(new FoodComponent.Builder().hunger(9).saturationModifier(10.0f).build())));
 
   private static void addToCombat(FabricItemGroupEntries entries) {
     entries.add(BULLET);
+  }
+
+  private static void addToFood(FabricItemGroupEntries entries) {
+    entries.add(BURGER);
   }
 
   private static void addToTools(FabricItemGroupEntries entries) {
@@ -36,5 +43,6 @@ public class ModItems {
 
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addToCombat);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addToTools);
+    ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(ModItems::addToFood);
   }
 }

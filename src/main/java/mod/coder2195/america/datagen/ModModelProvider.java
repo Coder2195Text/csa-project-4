@@ -24,6 +24,7 @@ public class ModModelProvider extends FabricModelProvider {
     // TODO Auto-generated method stub
     itemModelGenerator.register(ModItems.BULLET, Models.GENERATED);
     itemModelGenerator.register(ModItems.ANTHEM_DISC, Models.GENERATED);
+    itemModelGenerator.register(ModItems.BURGER, Models.GENERATED);
   }
 
 }
