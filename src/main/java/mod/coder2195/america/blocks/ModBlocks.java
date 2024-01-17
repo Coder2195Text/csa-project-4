@@ -10,9 +10,11 @@ import net.minecraft.util.Identifier;
 
 public class ModBlocks {
 
-  public static void registerBlock(String name, Block block) {
+  public static final Block AMERICAN_DREAM_BLOCK = registerBlock("american_dream_block", new AmericanDreamBlock());
+
+  public static Block registerBlock(String name, Block block) {
     registerBlockItem(name, block);
-    Registry.register(Registries.BLOCK, new Identifier(AmericaMod.MOD_ID, name), block);
+    return Registry.register(Registries.BLOCK, new Identifier(AmericaMod.MOD_ID, name), block);
   }
 
   public static Item registerBlockItem(String name, Block block) {

@@ -1,5 +1,6 @@
 package mod.coder2195.america.datagen;
 
+import mod.coder2195.america.blocks.ModBlocks;
 import mod.coder2195.america.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -17,6 +18,7 @@ public class ModModelProvider extends FabricModelProvider {
   @Override
   public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
     // TODO Auto-generated method stub
+    blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.AMERICAN_DREAM_BLOCK);
   }
 
   @Override
@@ -25,6 +27,7 @@ public class ModModelProvider extends FabricModelProvider {
     itemModelGenerator.register(ModItems.BULLET, Models.GENERATED);
     itemModelGenerator.register(ModItems.ANTHEM_DISC, Models.GENERATED);
     itemModelGenerator.register(ModItems.BURGER, Models.GENERATED);
+    
   }
 
 }

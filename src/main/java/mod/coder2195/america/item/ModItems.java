@@ -1,6 +1,7 @@
 package mod.coder2195.america.item;
 
 import mod.coder2195.america.AmericaMod;
+import mod.coder2195.america.blocks.ModBlocks;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -33,6 +34,10 @@ public class ModItems {
     entries.add(ANTHEM_DISC);
   }
 
+  private static void addToFunctional(FabricItemGroupEntries entries) {
+    entries.add(ModBlocks.AMERICAN_DREAM_BLOCK.asItem());
+  }
+
   public static Item registerItem(String name, Item item) {
     return Registry.register(Registries.ITEM,
         new Identifier(AmericaMod.MOD_ID, name), item);
@@ -44,5 +49,7 @@ public class ModItems {
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addToCombat);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addToTools);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(ModItems::addToFood);
+    ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addToFunctional);
+    
   }
 }

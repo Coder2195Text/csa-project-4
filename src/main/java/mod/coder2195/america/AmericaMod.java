@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import mod.coder2195.america.blocks.ModBlocks;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 
@@ -23,5 +24,6 @@ public class AmericaMod implements ModInitializer {
 
 		ModItems.registerModItems();
 		ModSounds.registerModSounds();
+		ModBlocks.registerModBlocks();
 	}
 }
