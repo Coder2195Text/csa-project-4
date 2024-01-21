@@ -4,5 +4,7 @@
   "item.america.music_disc_anthem": "Music Disc",
   "item.america.music_disc_anthem.desc": "AMERICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
   "item.america.burger": "Burger",
-  "block.america.american_dream_block": "American Dream Block"
+  "block.america.american_dream_block": "American Dream Block",
+  "itemgroup.america_weapons": "America++ Weapons",
+  "item.america.ar15": "AR-15"
 }

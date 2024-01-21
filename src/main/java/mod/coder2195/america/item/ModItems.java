@@ -21,10 +21,7 @@ public class ModItems {
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
   public static final Item BURGER = registerItem("burger",
       new Item(new FabricItemSettings().food(new FoodComponent.Builder().hunger(9).saturationModifier(10.0f).build())));
-
-  private static void addToCombat(FabricItemGroupEntries entries) {
-    entries.add(BULLET);
-  }
+  public static final Item AR15 = registerItem("ar15", new Item(new FabricItemSettings()));
 
   private static void addToFood(FabricItemGroupEntries entries) {
     entries.add(BURGER);
@@ -46,10 +43,9 @@ public class ModItems {
   public static void registerModItems() {
     AmericaMod.LOGGER.info("Registering mod items for " + AmericaMod.MOD_ID + "...");
 
-    ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addToCombat);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addToTools);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(ModItems::addToFood);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addToFunctional);
-    
+
   }
 }

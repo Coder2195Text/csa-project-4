@@ -27,7 +27,7 @@ public class ModModelProvider extends FabricModelProvider {
     itemModelGenerator.register(ModItems.BULLET, Models.GENERATED);
     itemModelGenerator.register(ModItems.ANTHEM_DISC, Models.GENERATED);
     itemModelGenerator.register(ModItems.BURGER, Models.GENERATED);
-    
+
   }
 
 }

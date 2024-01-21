@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import mod.coder2195.america.blocks.ModBlocks;
+import mod.coder2195.america.item.ModItemGroups;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 
@@ -22,6 +23,7 @@ public class AmericaMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
+		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModSounds.registerModSounds();
 		ModBlocks.registerModBlocks();
