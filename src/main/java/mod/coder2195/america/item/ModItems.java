@@ -21,7 +21,7 @@ public class ModItems {
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
   public static final Item BURGER = registerItem("burger",
       new Item(new FabricItemSettings().food(new FoodComponent.Builder().hunger(9).saturationModifier(10.0f).build())));
-  public static final Item AR15 = registerItem("ar15", new Item(new FabricItemSettings()));
+  public static final Item AR15 = registerItem("ar15", new AR15());
 
   private static void addToFood(FabricItemGroupEntries entries) {
     entries.add(BURGER);
