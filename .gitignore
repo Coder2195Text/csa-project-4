@@ -24,6 +24,8 @@ bin/
 .classpath
 .project
 
+src/main/generated
+
 # macos
 
 *.DS_Store
