@@ -14,6 +14,7 @@
   "environment": "*",
   "entrypoints": {
     "main": ["mod.coder2195.america.AmericaMod"],
+    "client": ["mod.coder2195.america.AmericaModClient"],
     "fabric-datagen": ["mod.coder2195.america.AmericaModDataGenerator"]
   },
   "mixins": ["america.mixins.json"],

@@ -2,9 +2,11 @@
   "item.america.bullet": "Bullet",
   "sounds.america.anthem": "National Anthem Plays",
   "item.america.music_disc_anthem": "Music Disc",
-  "item.america.music_disc_anthem.desc": "AMERICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "item.america.music_disc_anthem.desc": "AMERICAAAAAAAAAAA",
   "item.america.burger": "Burger",
   "block.america.american_dream_block": "American Dream Block",
   "itemgroup.america_weapons": "America++ Weapons",
-  "item.america.ar15": "AR-15"
+  "item.america.ar15": "AR-15",
+  "sounds.america.fire": "Gunshot",
+  "sounds.america.bullet_hit": "Bullet Thuds"
 }

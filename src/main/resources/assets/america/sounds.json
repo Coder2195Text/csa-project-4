@@ -1,6 +1,14 @@
 {
-  "anthem": {
+  "music.anthem": {
     "subtitle": "sounds.america.anthem",
-    "sounds": [{ "name": "america:anthem", "stream": true }]
+    "sounds": [{ "name": "america:music/anthem", "stream": true }]
+  },
+  "item.assault_rifle.fire": {
+    "subtitle": "sounds.america.fire",
+    "sounds": [{ "name": "america:item/assault_rifle/fire" }]
+  },
+  "entity.bullet.hit": {
+    "subtitle": "sounds.america.bullet_hit",
+    "sounds": [{ "name": "america:entity/bullet/hit" }]
   }
 }

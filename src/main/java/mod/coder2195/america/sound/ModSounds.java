@@ -7,7 +7,9 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModSounds {
-  public static final SoundEvent ANTHEM = registerSoundEvent("anthem");
+  public static final SoundEvent BULLET_HIT = registerSoundEvent("entity.bullet.hit");
+  public static final SoundEvent ANTHEM = registerSoundEvent("music.anthem");
+  public static final SoundEvent ASSAULT_RIFLE_FIRE = registerSoundEvent("item.assault_rifle.fire");
 
   public static SoundEvent registerSoundEvent(String name) {
     Identifier id = new Identifier(AmericaMod.MOD_ID, name);

@@ -2,6 +2,7 @@ package mod.coder2195.america.item;
 
 import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.blocks.ModBlocks;
+import mod.coder2195.america.item.custom.AR15;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
