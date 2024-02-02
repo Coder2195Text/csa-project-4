@@ -1,6 +1,7 @@
 package mod.coder2195.america.blocks;
 
 import mod.coder2195.america.AmericaMod;
+import mod.coder2195.america.blocks.custom.AmericanDreamBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;

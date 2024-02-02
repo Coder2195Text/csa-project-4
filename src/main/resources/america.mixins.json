@@ -3,7 +3,7 @@
   "package": "mod.coder2195.america.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
-  "client": ["GunPoseMixin"],
+  "client": ["GunPoseMixin", "CooldownMixin"],
   "injectors": {
     "defaultRequire": 1
   }
