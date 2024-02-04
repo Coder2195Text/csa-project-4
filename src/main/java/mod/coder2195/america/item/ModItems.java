@@ -2,7 +2,7 @@ package mod.coder2195.america.item;
 
 import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.blocks.ModBlocks;
-import mod.coder2195.america.item.custom.AR15;
+import mod.coder2195.america.item.custom.Gun;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -22,7 +22,8 @@ public class ModItems {
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
   public static final Item BURGER = registerItem("burger",
       new Item(new FabricItemSettings().food(new FoodComponent.Builder().hunger(9).saturationModifier(10.0f).build())));
-  public static final Item AR15 = registerItem("ar15", new AR15());
+  public static final Item AR15 = registerItem("ar15", new Gun() {
+  });
 
   private static void addToFood(FabricItemGroupEntries entries) {
     entries.add(BURGER);

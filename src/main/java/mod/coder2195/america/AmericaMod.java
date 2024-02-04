@@ -10,6 +10,7 @@ import mod.coder2195.america.entity.ModEntities;
 import mod.coder2195.america.item.ModItemGroups;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
+import mod.coder2195.america.networking.ModMessages;
 
 public class AmericaMod implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -29,5 +30,7 @@ public class AmericaMod implements ModInitializer {
 		ModSounds.registerModSounds();
 		ModBlocks.registerModBlocks();
 		ModEntities.registerEntities();
+
+		ModMessages.registerC2SPackets();
 	}
 }

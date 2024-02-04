@@ -8,5 +8,8 @@
   "itemgroup.america_weapons": "America++ Weapons",
   "item.america.ar15": "AR-15",
   "sounds.america.fire": "Gunshot",
-  "sounds.america.bullet_hit": "Bullet Thuds"
+  "sounds.america.bullet_hit": "Bullet Thuds",
+  "entity.america.bullet": "Bullet",
+  "key.america.reload": "Reload",
+  "key.categories.america": "America++"
 }
