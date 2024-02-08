@@ -17,6 +17,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
   @Override
   protected void configure(WrapperLookup arg) {
     getOrCreateTagBuilder(ModItemTags.GUN_ITEMS).add(ModItems.AR15);
+    getOrCreateTagBuilder(ModItemTags.GUN_ITEMS).add(ModItems.M24);
     getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.ANTHEM_DISC);
     getOrCreateTagBuilder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.ANTHEM_DISC);
   }

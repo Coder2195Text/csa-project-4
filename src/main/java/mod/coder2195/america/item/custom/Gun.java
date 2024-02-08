@@ -15,14 +15,14 @@ import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
 public abstract class Gun extends Item {
-  public static final int AMMO_CAPACITY = 30;
-  public static final double RELOAD_TIME = 2.5;
-  public static final SoundEvent FIRE_SOUND = ModSounds.ASSAULT_RIFLE_FIRE;
-  public static final float DAMAGE = 6;
-  public static final float SPEED = 30;
-  public static final int DEFAULT_MAX_USE_TIME = 0;
-  public static final int FIRE_DELAY = 5;
-  public static final float VARIANCE = 1f;
+  public static int AMMO_CAPACITY = 30;
+  public static double RELOAD_TIME = 2.5;
+  public static SoundEvent FIRE_SOUND = ModSounds.ASSAULT_RIFLE_FIRE;
+  public static float DAMAGE = 6;
+  public static float SPEED = 30;
+  public static int DEFAULT_MAX_USE_TIME = 0;
+  public static int FIRE_DELAY = 5;
+  public static float VARIANCE = 1f;
 
   public Gun() {
     super(new FabricItemSettings().maxDamage(AMMO_CAPACITY + 1));

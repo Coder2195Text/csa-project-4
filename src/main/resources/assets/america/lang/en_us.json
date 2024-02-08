@@ -11,5 +11,6 @@
   "sounds.america.bullet_hit": "Bullet Thuds",
   "entity.america.bullet": "Bullet",
   "key.america.reload": "Reload",
-  "key.categories.america": "America++"
+  "key.categories.america": "America++",
+  "item.america.m24": "M24"
 }

@@ -13,6 +13,7 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
@@ -23,6 +24,19 @@ public class ModItems {
   public static final Item BURGER = registerItem("burger",
       new Item(new FabricItemSettings().food(new FoodComponent.Builder().hunger(9).saturationModifier(10.0f).build())));
   public static final Item AR15 = registerItem("ar15", new Gun() {
+  });
+  public static final Item M24 = registerItem("m24", new Gun() {
+    static {
+      AMMO_CAPACITY = 1;
+      RELOAD_TIME = 2.5;
+      FIRE_SOUND = ModSounds.ASSAULT_RIFLE_FIRE;
+      DAMAGE = 24;
+      SPEED = 30;
+      DEFAULT_MAX_USE_TIME = 0;
+      FIRE_DELAY = 0;
+      VARIANCE = 0f;
+    }
+
   });
 
   private static void addToFood(FabricItemGroupEntries entries) {

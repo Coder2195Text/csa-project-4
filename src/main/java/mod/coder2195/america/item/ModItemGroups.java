@@ -18,6 +18,7 @@ public class ModItemGroups {
           .icon(() -> new ItemStack(ModItems.BULLET)).entries((display, entries) -> {
             entries.add(ModItems.BULLET);
             entries.add(ModItems.AR15);
+            entries.add(ModItems.M24);
           }).build());
 
   public static void registerItemGroups() {
