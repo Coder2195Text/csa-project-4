@@ -23,10 +23,12 @@ public class ModItems {
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
   public static final Item BURGER = registerItem("burger",
       new Item(new FabricItemSettings().food(new FoodComponent.Builder().hunger(9).saturationModifier(10.0f).build())));
-  public static final Item AR15 = registerItem("ar15", new Gun() {
-  });
+  private static class AR15Item extends Gun {
+  }
+  public static final Item AR15 = registerItem("ar15", new Gun(){});
+  // m24
   public static final Item M24 = registerItem("m24", new Gun() {
-    static {
+    {
       AMMO_CAPACITY = 1;
       RELOAD_TIME = 2.5;
       FIRE_SOUND = ModSounds.ASSAULT_RIFLE_FIRE;
