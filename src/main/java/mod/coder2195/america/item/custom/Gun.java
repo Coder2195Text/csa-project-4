@@ -43,7 +43,8 @@ public abstract class Gun extends Item {
   @Override
   public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
     NbtCompound tag = stack.getOrCreateNbt();
-    int reloadTime = tag.getInt("reloadTime");
+    boolean reloading = tag.getBoolean("reloading");
+    
     int ammo = AMMO_CAPACITY;
     if (tag.contains("ammo")) {
       ammo = tag.getInt("ammo");
@@ -51,17 +52,29 @@ public abstract class Gun extends Item {
       tag.putInt("ammo", AMMO_CAPACITY);
     }
     if (world.isClient && selected && entity instanceof PlayerEntity player) {
-      player.sendMessage(Text.of("Ammo: " + (AMMO_CAPACITY - stack.getDamage())), true);
+      player.sendMessage(Text.of("Ammo: " + (ammo)), true);
       return;
     }
+
+    if (reloading && !selected && !world.isClient)
+      tag.putBoolean("reloading", false);
+
   }
 
   public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
     ItemStack item = user.getStackInHand(hand);
+    NbtCompound tag = item.getOrCreateNbt();
+    long lastFire = tag.getLong("lastFire");
+    boolean reloading = tag.getBoolean("reloading");
+    long reloadTime = tag.getLong("reloadTime");
+    long currentTime = world.getTime();
+    int ammo = tag.getInt("ammo");
 
     if (!world.isClient) {
-      user.getItemCooldownManager().set(this, FIRE_DELAY);
+      if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative())) {
+        return TypedActionResult.fail(item);
+      }
       world.playSound(
           null,
           user.getBlockPos(),
@@ -71,10 +84,15 @@ public abstract class Gun extends Item {
           1f);
 
       BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED);
+      
 
       bulletEntity.setVelocity(user, user.getPitch() + (float) (Math.random() - 0.5) * VARIANCE,
           user.getYaw() + (float) (Math.random() - 0.5) * VARIANCE, 0.0F, SPEED, 0.0F);
       world.spawnEntity(bulletEntity);
+      tag.putLong("lastFire", currentTime);
+      if (!user.isCreative()) {
+        tag.putInt("ammo", ammo - 1);
+      }
     }
     return TypedActionResult.success(user.getStackInHand(hand), false);
 

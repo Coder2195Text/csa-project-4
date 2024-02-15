@@ -35,10 +35,9 @@ public class ModItems {
       DAMAGE = 24;
       SPEED = 30;
       DEFAULT_MAX_USE_TIME = 0;
-      FIRE_DELAY = 0;
+      FIRE_DELAY = 20;
       VARIANCE = 0f;
     }
-
   });
 
   private static void addToFood(FabricItemGroupEntries entries) {

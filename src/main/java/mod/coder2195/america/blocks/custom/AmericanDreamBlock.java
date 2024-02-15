@@ -6,8 +6,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LightningEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,12 +24,21 @@ public class AmericanDreamBlock extends Block {
         WorldAccess world,
         MinecraftServer server,
         BlockPos pos,
-        BlockState state);
+        BlockState state,
+        PlayerEntity player);
   }
 
   private static final BlockRoll[] rolls = {
-      (world, server, pos, state) -> {
+      (world, server, pos, state, player) -> {
+        if (world.isClient())
+          return;
+        server.sendMessage(Text.of("You have stepped into Florida."));
+        for (int i = 0; i < 300; i++) {
 
+          LightningEntity lightning = EntityType.LIGHTNING_BOLT
+              .spawn((ServerWorld) player.getWorld(), pos, SpawnReason.EVENT);
+
+        }
       }
   };
 
@@ -36,9 +49,9 @@ public class AmericanDreamBlock extends Block {
       return super.onBreak(world, pos, state, player);
 
     MinecraftServer server = world.getServer();
-  
+
     int roll = (int) (Math.random() * rolls.length);
-    rolls[roll].roll(world, server, pos, state);
+    rolls[roll].roll(world, server, pos, state, player);
 
     return super.onBreak(world, pos, state, player);
   }
