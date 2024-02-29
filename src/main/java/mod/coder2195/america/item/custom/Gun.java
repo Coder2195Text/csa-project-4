@@ -43,7 +43,7 @@ public abstract class Gun extends Item {
   @Override
   public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
     NbtCompound tag = stack.getOrCreateNbt();
-    boolean reloading = tag.getBoolean("reloading");
+    long reloadTime = tag.getLong("reloadTime");
     
     int ammo = AMMO_CAPACITY;
     if (tag.contains("ammo")) {
@@ -55,10 +55,6 @@ public abstract class Gun extends Item {
       player.sendMessage(Text.of("Ammo: " + (ammo)), true);
       return;
     }
-
-    if (reloading && !selected && !world.isClient)
-      tag.putBoolean("reloading", false);
-
   }
 
   public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -66,13 +62,12 @@ public abstract class Gun extends Item {
     ItemStack item = user.getStackInHand(hand);
     NbtCompound tag = item.getOrCreateNbt();
     long lastFire = tag.getLong("lastFire");
-    boolean reloading = tag.getBoolean("reloading");
     long reloadTime = tag.getLong("reloadTime");
     long currentTime = world.getTime();
     int ammo = tag.getInt("ammo");
 
     if (!world.isClient) {
-      if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative())) {
+      if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative()) || currentTime - reloadTime < RELOAD_TIME * 20) {
         return TypedActionResult.fail(item);
       }
       world.playSound(
