@@ -53,7 +53,7 @@ public class ReloadC2SPacket {
             } else {
               target -= stack.getCount();
               ammo += stack.getCount();
-              inventory.remove(i);
+              inventory.removeStack(i);
               tag.putInt("ammo", ammo);
               tag.putLong("reloadTime", currentTime);
             }
