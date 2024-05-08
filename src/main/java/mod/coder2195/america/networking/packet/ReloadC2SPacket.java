@@ -10,15 +10,17 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 public class ReloadC2SPacket {
   public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
       PacketByteBuf buf, PacketSender responseSender) {
     PlayerInventory inventory = player.getInventory();
 
-    ItemStack item = player.getActiveItem();
+    ItemStack item = inventory.getMainHandStack();
 
     if (item.getItem() instanceof Gun gun) {
+      player.sendMessage(Text.of("is gun"));
 
       NbtCompound tag = item.getOrCreateNbt();
       if (!tag.contains("ammo")) {
@@ -60,8 +62,6 @@ public class ReloadC2SPacket {
           }
         }
       }
-      
-      
 
     }
 

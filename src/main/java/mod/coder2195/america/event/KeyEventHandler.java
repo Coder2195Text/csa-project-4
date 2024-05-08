@@ -6,9 +6,9 @@ import mod.coder2195.america.networking.ModMessages;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 
 public class KeyEventHandler {
@@ -22,8 +22,7 @@ public class KeyEventHandler {
       if (!reloadKey.isPressed())
         return;
 
-      client.player.sendMessage(Text.of("Reload placeholder"));
-      ClientPlayNetworking.send(ModMessages.RELOADING_ID, new PacketByteBuf(null));
+      ClientPlayNetworking.send(ModMessages.RELOADING_ID, PacketByteBufs.create());
     });
   }
 
