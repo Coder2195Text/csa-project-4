@@ -14,9 +14,13 @@ import net.minecraft.text.Text;
 public class KeyEventHandler {
   public static final String KEY_CATEGORY_AMERICA = "key.categories.america";
   public static final String KEY_RELOAD = "key.america.reload";
+  public static final String KEY_ZOOM = "key.america.zoom";
 
   public static KeyBinding reloadKey;
   public static boolean justReloaded = false;
+
+  public static KeyBinding zoomKey;
+  public static boolean isZooming;
 
   public static void registerKeyInputs() {
     ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -34,11 +38,17 @@ public class KeyEventHandler {
       ClientPlayNetworking.send(ModMessages.RELOADING_ID, PacketByteBufs.create());
     });
 
+    ClientTickEvents.END_CLIENT_TICK.register(client -> {
+      isZooming = zoomKey.isPressed();
+    });
+
   }
 
   public static void register() {
     reloadKey = KeyBindingHelper
         .registerKeyBinding(new KeyBinding(KEY_RELOAD, InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, KEY_CATEGORY_AMERICA));
+    zoomKey = KeyBindingHelper
+        .registerKeyBinding(new KeyBinding(KEY_ZOOM, InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z, KEY_CATEGORY_AMERICA));
 
     registerKeyInputs();
   }

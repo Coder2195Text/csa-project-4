@@ -4,6 +4,7 @@ import mod.coder2195.america.entity.custom.BulletEntity;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -26,7 +27,7 @@ public abstract class Gun extends Item {
   public float SPEED = 30;
   public int DEFAULT_MAX_USE_TIME = 0;
   public int FIRE_DELAY = 5;
-  public float VARIANCE = 1f;
+  public float VARIANCE = 3f;
 
   public Gun() {
     super(new FabricItemSettings().maxCount(1));
