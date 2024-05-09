@@ -2,10 +2,10 @@
   "credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
   "ambientocclusion": false,
   "textures": {
-    "0": "america:item/ar15/rel",
-    "1": "america:item/ar15/light",
-    "2": "america:item/ar15/dark",
-    "particle": "america:item/ar15/rel"
+    "0": "america:item/guns/rel",
+    "1": "america:item/guns/light",
+    "2": "america:item/guns/dark",
+    "particle": "america:item/guns/rel"
   },
   "elements": [
     {
