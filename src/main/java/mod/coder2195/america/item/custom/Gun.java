@@ -1,6 +1,7 @@
 package mod.coder2195.america.item.custom;
 
 import mod.coder2195.america.entity.custom.BulletEntity;
+import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.Entity;
@@ -44,16 +45,21 @@ public abstract class Gun extends Item {
   public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
     NbtCompound tag = stack.getOrCreateNbt();
     long reloadTime = tag.getLong("reloadTime");
-    
+
     int ammo = AMMO_CAPACITY;
+
     if (tag.contains("ammo")) {
       ammo = tag.getInt("ammo");
     } else if (!world.isClient) {
       tag.putInt("ammo", AMMO_CAPACITY);
     }
+
     if (world.isClient && selected && entity instanceof PlayerEntity player) {
-      player.sendMessage(Text.of("Ammo: " + (ammo)), true);
-      return;
+      if (reloadTime + (int) (RELOAD_TIME * 20) > world.getTime())
+        player.sendMessage(Text.of("Reloading..."), true);
+      else
+        player.sendMessage(Text.of("Ammo: " + (ammo)), true);
+
     }
   }
 
@@ -67,7 +73,8 @@ public abstract class Gun extends Item {
     int ammo = tag.getInt("ammo");
 
     if (!world.isClient) {
-      if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative()) || currentTime - reloadTime < RELOAD_TIME * 20) {
+      if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative())
+          || currentTime - reloadTime < RELOAD_TIME * 20) {
         return TypedActionResult.fail(item);
       }
       world.playSound(
@@ -79,7 +86,6 @@ public abstract class Gun extends Item {
           1f);
 
       BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED);
-      
 
       bulletEntity.setVelocity(user, user.getPitch() + (float) (Math.random() - 0.5) * VARIANCE,
           user.getYaw() + (float) (Math.random() - 0.5) * VARIANCE, 0.0F, SPEED, 0.0F);

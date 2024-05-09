@@ -16,14 +16,24 @@ public class KeyEventHandler {
   public static final String KEY_RELOAD = "key.america.reload";
 
   public static KeyBinding reloadKey;
+  public static boolean justReloaded = false;
 
   public static void registerKeyInputs() {
     ClientTickEvents.END_CLIENT_TICK.register(client -> {
-      if (!reloadKey.isPressed())
+      if (!reloadKey.isPressed()) {
+        justReloaded = false;
         return;
+      }
+
+      if (justReloaded) {
+        return;
+      }
+
+      justReloaded = true;
 
       ClientPlayNetworking.send(ModMessages.RELOADING_ID, PacketByteBufs.create());
     });
+
   }
 
   public static void register() {
