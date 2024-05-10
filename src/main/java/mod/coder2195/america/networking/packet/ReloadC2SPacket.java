@@ -21,8 +21,6 @@ public class ReloadC2SPacket {
     ItemStack item = inventory.getMainHandStack();
 
     if (item.getItem() instanceof Gun gun) {
-      player.sendMessage(Text.of("is gun"));
-
       NbtCompound tag = item.getOrCreateNbt();
       if (!tag.contains("ammo")) {
         return;
@@ -33,13 +31,10 @@ public class ReloadC2SPacket {
       long currentTime = player.getWorld().getTime();
       int ammo = tag.getInt("ammo");
 
-      if (ammo == capacity) {
+      // early return for if the gun is already full, reloading, or out of bullets,
+      // respectively
+      if (ammo == capacity || currentTime - reloadTime < gun.RELOAD_TIME * 20 || inventory.count(ModItems.BULLET) == 0)
         return;
-      }
-
-      if (currentTime - reloadTime < gun.RELOAD_TIME * 20) {
-        return;
-      }
 
       int target = capacity - ammo;
 
@@ -50,25 +45,21 @@ public class ReloadC2SPacket {
           SoundCategory.PLAYERS,
           1f,
           1f);
-
-
-      if (inventory.count(ModItems.BULLET) > 0) {
-        for (int i = 0; i < inventory.size(); i++) {
-          ItemStack stack = inventory.getStack(i);
-          if (stack.getItem() == ModItems.BULLET) {
-            if (stack.getCount() > target) {
-              stack.decrement(target);
-              ammo = capacity;
-              tag.putInt("ammo", ammo);
-              tag.putLong("reloadTime", currentTime);
-              return;
-            } else {
-              target -= stack.getCount();
-              ammo += stack.getCount();
-              inventory.removeStack(i);
-              tag.putInt("ammo", ammo);
-              tag.putLong("reloadTime", currentTime);
-            }
+      for (int i = 0; i < inventory.size(); i++) {
+        ItemStack stack = inventory.getStack(i);
+        if (stack.getItem() == ModItems.BULLET) {
+          if (stack.getCount() > target) {
+            stack.decrement(target);
+            ammo = capacity;
+            tag.putInt("ammo", ammo);
+            tag.putLong("reloadTime", currentTime);
+            return;
+          } else {
+            target -= stack.getCount();
+            ammo += stack.getCount();
+            inventory.removeStack(i);
+            tag.putInt("ammo", ammo);
+            tag.putLong("reloadTime", currentTime);
           }
         }
       }
