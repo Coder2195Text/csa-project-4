@@ -7,6 +7,22 @@
     "subtitle": "sounds.america.fire",
     "sounds": [{ "name": "america:item/assault_rifle/fire" }]
   },
+  "item.assault_rifle.reload": {
+    "subtitle": "sounds.america.reload",
+    "sounds": [{ "name": "america:item/assault_rifle/cock" }]
+  },
+  "item.sniper.fire": {
+    "subtitle": "sounds.america.fire",
+    "sounds": [{
+      "name": "america:item/heavy_rifle/fire"
+    }]
+  },
+  "item.sniper.reload": {
+    "subtitle": "sounds.america.reload",
+    "sounds": [{
+      "name": "america:item/heavy_rifle/cock"
+    }]
+  },
   "entity.bullet.hit": {
     "subtitle": "sounds.america.bullet_hit",
     "sounds": [{ "name": "america:entity/bullet/hit" }]

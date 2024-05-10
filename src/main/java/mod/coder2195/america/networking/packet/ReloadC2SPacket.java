@@ -10,6 +10,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 
 public class ReloadC2SPacket {
@@ -41,6 +42,15 @@ public class ReloadC2SPacket {
       }
 
       int target = capacity - ammo;
+
+      player.getWorld().playSound(
+          null,
+          player.getBlockPos(),
+          gun.RELOAD_SOUND,
+          SoundCategory.PLAYERS,
+          1f,
+          1f);
+
 
       if (inventory.count(ModItems.BULLET) > 0) {
         for (int i = 0; i < inventory.size(); i++) {

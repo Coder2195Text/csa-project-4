@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.Text;
 
 public class KeyEventHandler {
   public static final String KEY_CATEGORY_AMERICA = "key.categories.america";

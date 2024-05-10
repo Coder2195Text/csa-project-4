@@ -1,15 +1,12 @@
 package mod.coder2195.america.item.custom;
 
 import mod.coder2195.america.entity.custom.BulletEntity;
-import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -23,6 +20,7 @@ public abstract class Gun extends Item {
   public int AMMO_CAPACITY = 30;
   public double RELOAD_TIME = 2.5;
   public SoundEvent FIRE_SOUND = ModSounds.ASSAULT_RIFLE_FIRE;
+  public SoundEvent RELOAD_SOUND = ModSounds.ASSAULT_RIFLE_RELOAD;
   public float DAMAGE = 6;
   public float SPEED = 30;
   public int DEFAULT_MAX_USE_TIME = 0;

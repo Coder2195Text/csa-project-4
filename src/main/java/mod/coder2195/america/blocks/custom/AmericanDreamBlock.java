@@ -1,6 +1,5 @@
 package mod.coder2195.america.blocks.custom;
 
-import mod.coder2195.america.AmericaMod;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,7 +10,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

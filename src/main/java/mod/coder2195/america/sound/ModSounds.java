@@ -9,7 +9,12 @@ import net.minecraft.util.Identifier;
 public class ModSounds {
   public static final SoundEvent BULLET_HIT = registerSoundEvent("entity.bullet.hit");
   public static final SoundEvent ANTHEM = registerSoundEvent("music.anthem");
+
   public static final SoundEvent ASSAULT_RIFLE_FIRE = registerSoundEvent("item.assault_rifle.fire");
+  public static final SoundEvent ASSAULT_RIFLE_RELOAD = registerSoundEvent("item.assault_rifle.reload");
+
+  public static final SoundEvent SNIPER_FIRE = registerSoundEvent("item.sniper.fire");
+  public static final SoundEvent SNIPER_RELOAD = registerSoundEvent("item.sniper.reload");
 
   public static SoundEvent registerSoundEvent(String name) {
     Identifier id = new Identifier(AmericaMod.MOD_ID, name);
