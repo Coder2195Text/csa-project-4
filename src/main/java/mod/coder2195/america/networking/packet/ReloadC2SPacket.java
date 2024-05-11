@@ -11,7 +11,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
 
 public class ReloadC2SPacket {
   public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,

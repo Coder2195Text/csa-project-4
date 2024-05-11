@@ -23,13 +23,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				.criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
 				.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
 				.criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
-				.offerTo(exporter, "bullet");
+				.offerTo(exporter);
 
 		ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.BURGER, 1).pattern("B").pattern("F").pattern("B")
 				.input('B', Items.BREAD).input('F', Items.COOKED_BEEF)
 				.criterion(hasItem(Items.BREAD), conditionsFromItem(Items.BREAD))
 				.criterion(hasItem(Items.COOKED_BEEF), conditionsFromItem(Items.COOKED_BEEF))
-				.offerTo(exporter, "burger");
+				.offerTo(exporter);
 	}
 
 }

@@ -6,19 +6,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import mod.coder2195.america.event.KeyEventHandler;
-import mod.coder2195.america.item.ModItemTags;
+import mod.coder2195.america.item.custom.Gun;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 
 @Mixin(AbstractClientPlayerEntity.class)
 public abstract class GunZoomFOVMixin {
-
     @Inject(method = "getFovMultiplier()F", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getActiveItem()Lnet/minecraft/item/ItemStack;", shift = At.Shift.AFTER), cancellable = true)
     private void injected(CallbackInfoReturnable<Float> ci) {
-        if (((PlayerEntity) (Object) this).getStackInHand(Hand.MAIN_HAND).isIn(ModItemTags.GUN_ITEMS)
+        if (((PlayerEntity) (Object) this).getStackInHand(Hand.MAIN_HAND).getItem() instanceof Gun gun
                 && KeyEventHandler.isZooming) {
-            ci.setReturnValue(0.1F);
+            ci.setReturnValue(gun.ZOOM_FOV);
         }
     }
 }

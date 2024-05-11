@@ -17,18 +17,20 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
 public class ModItems {
+
   public static final Item BULLET = registerItem("bullet", new Item(new FabricItemSettings()));
   public static final Item ANTHEM_DISC = registerItem("music_disc_anthem",
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
   public static final Item BURGER = registerItem("burger",
       new Item(new FabricItemSettings().food(new FoodComponent.Builder().hunger(9).saturationModifier(10.0f).build())));
 
-  public static final Item AR15 = registerItem("ar15", new Gun(){});
+  public static final Item AR15 = registerItem("ar15", new Gun() {
+  });
   // m24
   public static final Item M24 = registerItem("m24", new Gun() {
     {
       AMMO_CAPACITY = 1;
-      RELOAD_TIME = 2.5;
+      RELOAD_TIME = 4;
       FIRE_SOUND = ModSounds.SNIPER_FIRE;
       RELOAD_SOUND = ModSounds.SNIPER_RELOAD;
       DAMAGE = 24;
@@ -36,8 +38,26 @@ public class ModItems {
       DEFAULT_MAX_USE_TIME = 0;
       FIRE_DELAY = 20;
       VARIANCE = 0f;
+      SCOPED = true;
+      ZOOM_FOV = 0.1f;
     }
   });
+
+  // implement ak47 + communist badge
+  public static final Item AK47 = registerItem("ak47", new Gun() {
+    {
+      DAMAGE = 5.5f;
+      SPEED = 20;
+      DEFAULT_MAX_USE_TIME = 0;
+      FIRE_DELAY = 4;
+      VARIANCE = 1f;
+    }
+  });
+
+  public static final Item[] GUNS = new Item[] { ModItems.AR15, ModItems.M24, ModItems.AK47 };
+
+  public static final Item COMMUNIST_BADGE = registerItem("communist_badge", new Item(new FabricItemSettings()));
+  public static final Item AMERICAN_BADGE = registerItem("american_badge", new Item(new FabricItemSettings()));
 
   private static void addToFood(FabricItemGroupEntries entries) {
     entries.add(BURGER);
@@ -51,6 +71,11 @@ public class ModItems {
     entries.add(ModBlocks.AMERICAN_DREAM_BLOCK.asItem());
   }
 
+  private static void addToIngrediants(FabricItemGroupEntries entries) {
+    entries.add(ModItems.COMMUNIST_BADGE);
+    entries.add(ModItems.AMERICAN_BADGE);
+  }
+
   public static Item registerItem(String name, Item item) {
     return Registry.register(Registries.ITEM,
         new Identifier(AmericaMod.MOD_ID, name), item);
@@ -62,6 +87,6 @@ public class ModItems {
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addToTools);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(ModItems::addToFood);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addToFunctional);
-
+    ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addToIngrediants);
   }
 }

@@ -1,5 +1,6 @@
 package mod.coder2195.america;
 
+import mod.coder2195.america.datagen.ModAdvancementProvider;
 import mod.coder2195.america.datagen.ModBlockTagProvider;
 import mod.coder2195.america.datagen.ModItemTagProvider;
 import mod.coder2195.america.datagen.ModLootTableProvider;
@@ -18,5 +19,6 @@ public class AmericaModDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModLootTableProvider::new);
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
+		pack.addProvider(ModAdvancementProvider::new);
 	}
 }

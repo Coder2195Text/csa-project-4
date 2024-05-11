@@ -19,6 +19,7 @@ public class ModItemGroups {
             entries.add(ModItems.BULLET);
             entries.add(ModItems.AR15);
             entries.add(ModItems.M24);
+            entries.add(ModItems.AK47);
           }).build());
 
   public static void registerItemGroups() {

@@ -12,21 +12,20 @@ public class ModModelProvider extends FabricModelProvider {
 
   public ModModelProvider(FabricDataOutput output) {
     super(output);
-    // TODO Auto-generated constructor stub
   }
 
   @Override
   public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-    // TODO Auto-generated method stub
     blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.AMERICAN_DREAM_BLOCK);
   }
 
   @Override
   public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-    // TODO Auto-generated method stub
     itemModelGenerator.register(ModItems.BULLET, Models.GENERATED);
     itemModelGenerator.register(ModItems.ANTHEM_DISC, Models.GENERATED);
     itemModelGenerator.register(ModItems.BURGER, Models.GENERATED);
+    itemModelGenerator.register(ModItems.COMMUNIST_BADGE, Models.GENERATED);
+    itemModelGenerator.register(ModItems.AMERICAN_BADGE, Models.GENERATED);
 
   }
 

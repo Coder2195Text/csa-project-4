@@ -6,6 +6,7 @@ import mod.coder2195.america.item.ModItemTags;
 import mod.coder2195.america.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.registry.tag.ItemTags;
 
@@ -16,8 +17,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
   @Override
   protected void configure(WrapperLookup arg) {
-    getOrCreateTagBuilder(ModItemTags.GUN_ITEMS).add(ModItems.AR15);
-    getOrCreateTagBuilder(ModItemTags.GUN_ITEMS).add(ModItems.M24);
+    for (Item item : ModItems.GUNS) {
+      getOrCreateTagBuilder(ModItemTags.GUN_ITEMS).add(item);
+    }
     getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.ANTHEM_DISC);
     getOrCreateTagBuilder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.ANTHEM_DISC);
   }

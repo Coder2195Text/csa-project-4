@@ -25,6 +25,8 @@ public abstract class Gun extends Item {
   public float SPEED = 30;
   public int DEFAULT_MAX_USE_TIME = 0;
   public int FIRE_DELAY = 5;
+  public boolean SCOPED = false;
+  public float ZOOM_FOV = 0.75f;
   public float VARIANCE = 3f;
 
   public Gun() {
