@@ -6,17 +6,31 @@
   "item.america.burger": "Burger",
   "block.america.american_dream_block": "American Dream Block",
   "itemgroup.america_weapons": "America++ Weapons",
-  "item.america.ar15": "AR-15",
+
   "sounds.america.fire": "Gunshot",
   "sounds.america.reload": "Gun Reloads",
   "sounds.america.bullet_hit": "Bullet Thuds",
   "entity.america.bullet": "Bullet",
-  "key.america.reload": "Reload",
 
+  "key.america.reload": "Reload",
   "key.america.zoom": "Zoom Gun",
   "key.categories.america": "America++",
+
+  "item.america.ar15": "AR-15",
   "item.america.m24": "M24",
   "item.america.ak47": "AK-47",
   "item.america.communist_badge": "Communist Badge",
-  "item.america.american_badge": "American Badge"
+  "item.america.american_badge": "American Badge",
+  "item.america.m4a1": "M4A1",
+  "item.america.minigun": "Minigun",
+
+  "death.attack.bullet": "%s was gunned down by %s",
+  "death.attack.bullet.item": "%s was gunned down by %s using %s",
+  "death.attack.bullet.player": "%s was gunned down whilst trying to escape %s",
+  "death.attack.bullet.player.item": "%s was gunned down whilst trying to escape %s using %s",
+
+  "death.attack.sniper": "%s was sniped by %s",
+  "death.attack.sniper.item": "%s was sniped by %s using %s",
+  "death.attack.sniper.player": "%s was sniped whilst trying to escape %s",
+  "death.attack.sniper.player.item": "%s was sniped whilst trying to escape %s using %s"
 }

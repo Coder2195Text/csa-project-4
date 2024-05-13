@@ -88,8 +88,8 @@ public abstract class Gun extends Item {
 
       BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED);
 
-      bulletEntity.setVelocity(user, user.getPitch() + (float) (Math.random() - 0.5) * VARIANCE,
-          user.getYaw() + (float) (Math.random() - 0.5) * VARIANCE, 0.0F, SPEED, 0.0F);
+      bulletEntity.setVelocity(user, user.getPitch(),
+          user.getYaw(), 0.0F, SPEED, VARIANCE);
       world.spawnEntity(bulletEntity);
       tag.putLong("lastFire", currentTime);
       if (!user.isCreative()) {
@@ -97,6 +97,5 @@ public abstract class Gun extends Item {
       }
     }
     return TypedActionResult.success(user.getStackInHand(hand), false);
-
   }
 }

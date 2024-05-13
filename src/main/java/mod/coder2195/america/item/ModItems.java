@@ -7,6 +7,7 @@ import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -35,8 +36,8 @@ public class ModItems {
       RELOAD_SOUND = ModSounds.SNIPER_RELOAD;
       DAMAGE = 24;
       SPEED = 30;
-      DEFAULT_MAX_USE_TIME = 0;
-      FIRE_DELAY = 20;
+
+      FIRE_DELAY = 30;
       VARIANCE = 0f;
       SCOPED = true;
       ZOOM_FOV = 0.1f;
@@ -46,15 +47,38 @@ public class ModItems {
   // implement ak47 + communist badge
   public static final Item AK47 = registerItem("ak47", new Gun() {
     {
-      DAMAGE = 5.5f;
+      DAMAGE = 5f;
       SPEED = 20;
-      DEFAULT_MAX_USE_TIME = 0;
+
       FIRE_DELAY = 4;
-      VARIANCE = 1f;
+      VARIANCE = 2f;
     }
   });
 
-  public static final Item[] GUNS = new Item[] { ModItems.AR15, ModItems.M24, ModItems.AK47 };
+  public static final Item M4A1 = registerItem("m4a1", new Gun() {
+    {
+      DAMAGE = 5.5f;
+      SPEED = 24;
+
+      FIRE_DELAY = 5;
+      VARIANCE = 2.5f;
+    }
+  });
+
+  public static final Item MINIGUN = registerItem("minigun", new Gun() {
+    {
+      DAMAGE = 3f;
+      SPEED = 15;
+      AMMO_CAPACITY = 300;
+      ZOOM_FOV = 0.1f;
+
+      FIRE_DELAY = 0;
+      VARIANCE = 6f;
+    }
+  });
+
+  public static final Item[] GUNS = new Item[] { ModItems.AR15, ModItems.M24, ModItems.AK47, ModItems.M4A1,
+      ModItems.MINIGUN };
 
   public static final Item COMMUNIST_BADGE = registerItem("communist_badge", new Item(new FabricItemSettings()));
   public static final Item AMERICAN_BADGE = registerItem("american_badge", new Item(new FabricItemSettings()));

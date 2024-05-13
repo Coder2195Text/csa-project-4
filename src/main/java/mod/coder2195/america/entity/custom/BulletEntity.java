@@ -3,6 +3,7 @@ package mod.coder2195.america.entity.custom;
 import mod.coder2195.america.entity.ModEntities;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
+import mod.coder2195.effects.ModDamageTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -54,13 +55,15 @@ public class BulletEntity extends PersistentProjectileEntity {
     Entity entity = entityHitResult.getEntity();
 
     Entity owner = this.getOwner();
+
     DamageSource damageSource;
     if (owner == null) {
-      damageSource = this.getDamageSources().arrow(this, this);
+      damageSource = ModDamageTypes.of(getWorld(), ModDamageTypes.BULLET);
     } else {
-      damageSource = this.getDamageSources().arrow(this, owner);
-      if (owner instanceof LivingEntity) {
-        ((LivingEntity) owner).onAttacking(entity);
+      damageSource = ModDamageTypes.of(getWorld(),
+          owner.distanceTo(entity) > 48 ? ModDamageTypes.SNIPER_BULLET : ModDamageTypes.BULLET, owner);
+      if (owner instanceof LivingEntity livingEntity) {
+        livingEntity.onAttacking(entity);
       }
     }
 

@@ -5,23 +5,33 @@
   },
   "item.assault_rifle.fire": {
     "subtitle": "sounds.america.fire",
-    "sounds": [{ "name": "america:item/assault_rifle/fire" }]
+    "sounds": [
+      { "name": "america:item/assault_rifle/fire1" },
+      { "name": "america:item/assault_rifle/fire2" }
+    ]
   },
   "item.assault_rifle.reload": {
     "subtitle": "sounds.america.reload",
-    "sounds": [{ "name": "america:item/assault_rifle/cock" }]
+    "sounds": [{ "name": "america:item/assault_rifle/reload" }]
   },
   "item.sniper.fire": {
     "subtitle": "sounds.america.fire",
-    "sounds": [{
-      "name": "america:item/heavy_rifle/fire"
-    }]
+    "sounds": [
+      {
+        "name": "america:item/heavy_rifle/fire1"
+      },
+      {
+        "name": "america:item/heavy_rifle/fire2"
+      }
+    ]
   },
   "item.sniper.reload": {
     "subtitle": "sounds.america.reload",
-    "sounds": [{
-      "name": "america:item/heavy_rifle/cock"
-    }]
+    "sounds": [
+      {
+        "name": "america:item/heavy_rifle/reload"
+      }
+    ]
   },
   "entity.bullet.hit": {
     "subtitle": "sounds.america.bullet_hit",

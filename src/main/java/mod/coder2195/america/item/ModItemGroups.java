@@ -2,6 +2,7 @@ package mod.coder2195.america.item;
 
 import mod.coder2195.america.AmericaMod;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -17,9 +18,9 @@ public class ModItemGroups {
           .displayName(Text.translatable("itemgroup.america_weapons"))
           .icon(() -> new ItemStack(ModItems.BULLET)).entries((display, entries) -> {
             entries.add(ModItems.BULLET);
-            entries.add(ModItems.AR15);
-            entries.add(ModItems.M24);
-            entries.add(ModItems.AK47);
+            for (Item gun : ModItems.GUNS) {
+              entries.add(gun);
+            }
           }).build());
 
   public static void registerItemGroups() {
