@@ -19,7 +19,7 @@ public class AmericanDreamBlock extends Block {
   @FunctionalInterface
   private static interface BlockRoll {
     void roll(
-        WorldAccess world,
+        World world,
         MinecraftServer server,
         BlockPos pos,
         BlockState state,
@@ -30,14 +30,41 @@ public class AmericanDreamBlock extends Block {
       (world, server, pos, state, player) -> {
         if (world.isClient())
           return;
-        server.sendMessage(Text.of("You have stepped into Florida."));
-        for (int i = 0; i < 300; i++) {
 
-          LightningEntity lightning = EntityType.LIGHTNING_BOLT
-              .spawn((ServerWorld) player.getWorld(), pos, SpawnReason.EVENT);
-
+        player.sendMessage(Text.of("You have stepped into Florida."));
+        for (int x = -7; x <= 7; x++) {
+          for (int z = -7; z <= 7; z++) {
+            BlockPos newPos = pos.add(x, 0, z);
+            EntityType.LIGHTNING_BOLT
+                .spawn((ServerWorld) player.getWorld(), newPos, SpawnReason.EVENT);
+          }
         }
-      }
+      },
+      (world, server, pos, state, player) -> {
+        if (world.isClient())
+          return;
+
+        player.sendMessage(Text.of("You have stepped into Kansas."));
+        for (int x = -7; x <= 7; x++) {
+          for (int z = -7; z <= 7; z++) {
+            for (int y = 255; y > 32; y--) {
+              Block target = world.getBlockState(pos.add(x, 0, z).withY(y)).getBlock();
+              if (!(target == Blocks.GRASS_BLOCK || target == Blocks.DIRT || target == Blocks.FARMLAND))
+                continue;
+
+              BlockState targetUp = world.getBlockState(pos.add(x, 0, z).withY(y + 1));
+              if (!targetUp.isReplaceable())
+                break;
+
+              // set to farmland
+              world.setBlockState(pos.add(x, 0, z).withY(y), Blocks.FARMLAND.getDefaultState());
+              world.setBlockState(pos.add(x, 0, z).withY(y + 1), Blocks.WHEAT.getDefaultState());
+
+            }
+          }
+        }
+
+      },
   };
 
   @Override
