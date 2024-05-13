@@ -56,9 +56,7 @@ public class AmericanDreamBlock extends Block {
               if (!targetUp.isReplaceable())
                 break;
 
-
               CropBlock crop = (CropBlock) Blocks.WHEAT;
-              
 
               // set to farmland
               world.setBlockState(pos.add(x, 0, z).withY(y), Blocks.FARMLAND.getDefaultState());
@@ -74,10 +72,11 @@ public class AmericanDreamBlock extends Block {
 
         player.sendMessage(Text.of("The government has increased taxes."));
         PlayerInventory inventory = player.getInventory();
-        for (int i=0; i< inventory.size(); i++) {
+        for (int i = 0; i < inventory.size(); i++) {
           inventory.removeStack(i);
         }
         player.setHealth(1);
+        player.getHungerManager().setFoodLevel(1);
       }
   };
 
@@ -97,6 +96,5 @@ public class AmericanDreamBlock extends Block {
   public AmericanDreamBlock() {
     super(FabricBlockSettings.copyOf(Blocks.RED_WOOL).dropsNothing());
 
-    
   }
 }
