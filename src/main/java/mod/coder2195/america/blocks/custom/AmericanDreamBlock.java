@@ -88,6 +88,7 @@ public class AmericanDreamBlock extends Block {
     MinecraftServer server = world.getServer();
 
     int roll = (int) (Math.random() * rolls.length);
+    // int roll = 2;
     rolls[roll].roll(world, server, pos, state, player);
 
     return super.onBreak(world, pos, state, player);

@@ -41,7 +41,5 @@ replay_*.log
 *.hprof
 *.jfr
 
-*.mcmeta
-
 # github
 .github/

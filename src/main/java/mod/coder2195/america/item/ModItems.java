@@ -7,7 +7,6 @@ import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -61,7 +60,7 @@ public class ModItems {
       SPEED = 24;
 
       FIRE_DELAY = 5;
-      VARIANCE = 2.5f;
+      VARIANCE = 1f;
     }
   });
 
@@ -70,10 +69,11 @@ public class ModItems {
       DAMAGE = 3f;
       SPEED = 15;
       AMMO_CAPACITY = 300;
-      ZOOM_FOV = 0.1f;
+      ZOOM_FOV = 0.9f;
 
       FIRE_DELAY = 0;
       VARIANCE = 6f;
+      FIRE_SOUND = ModSounds.MINIGUN_FIRE;
     }
   });
 
