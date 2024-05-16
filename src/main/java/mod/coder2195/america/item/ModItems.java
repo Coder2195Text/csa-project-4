@@ -95,9 +95,13 @@ public class ModItems {
     entries.add(ModBlocks.AMERICAN_DREAM_BLOCK.asItem());
   }
 
-  private static void addToIngrediants(FabricItemGroupEntries entries) {
+  private static void addToIngredients(FabricItemGroupEntries entries) {
     entries.add(ModItems.COMMUNIST_BADGE);
     entries.add(ModItems.AMERICAN_BADGE);
+  }
+
+  private static void addToBlocks(FabricItemGroupEntries entries) {
+    entries.add(ModBlocks.REINFORCED_IRON.asItem());
   }
 
   public static Item registerItem(String name, Item item) {
@@ -111,6 +115,7 @@ public class ModItems {
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addToTools);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(ModItems::addToFood);
     ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addToFunctional);
-    ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addToIngrediants);
+    ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addToIngredients);
+    ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ModItems::addToBlocks);
   }
 }

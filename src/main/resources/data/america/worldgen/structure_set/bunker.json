@@ -1,16 +1,15 @@
-
 {
-    
-    "structures": [
-      {
-        "structure": "america:bunker",
-        "weight": 1
-      }
-    ],
-    "placement": {
-      "type": "minecraft:random_spread",
-      "spacing": 50,
-      "separation": 10,
-      "salt": 1646207470
+  "structures": [
+    {
+      "structure": "america:bunker",
+      "weight": 1
     }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 50,
+    "separation": 10,
+    "salt": 1646207470,
+    "locate_offset": [-16, 0, -16]
   }
+}

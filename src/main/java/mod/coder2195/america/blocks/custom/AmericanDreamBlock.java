@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -77,21 +78,35 @@ public class AmericanDreamBlock extends Block {
         }
         player.setHealth(1);
         player.getHungerManager().setFoodLevel(1);
-      }
+      },
+      (world, server, pos, state, player) -> {
+        if (world.isClient())
+          return;
+
+        pos = pos.up();
+
+        world.setBlockState(pos, Blocks.CHEST.getDefaultState());
+        if (world.getBlockEntity(pos) instanceof ChestBlockEntity) {
+          ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos);
+          chest.setCustomName(Text.of("Trump's Aid to non-whites"));
+        }
+      },
   };
 
   @Override
   public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-    if (world.isClient())
-      return super.onBreak(world, pos, state, player);
+    state = super.onBreak(world, pos, state, player);
 
-    MinecraftServer server = world.getServer();
+    if (!world.isClient()) {
 
-    int roll = (int) (Math.random() * rolls.length);
-    // int roll = 2;
-    rolls[roll].roll(world, server, pos, state, player);
+      MinecraftServer server = world.getServer();
 
-    return super.onBreak(world, pos, state, player);
+      // int roll = (int) (Math.random() * rolls.length);
+      int roll = 3;
+      rolls[roll].roll(world, server, pos, state, player);
+    }
+
+    return state;
   }
 
   public AmericanDreamBlock() {
