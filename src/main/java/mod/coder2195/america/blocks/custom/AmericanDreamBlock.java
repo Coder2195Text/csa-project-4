@@ -1,5 +1,6 @@
 package mod.coder2195.america.blocks.custom;
 
+import mod.coder2195.america.utils.TaskQueue;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -80,17 +81,18 @@ public class AmericanDreamBlock extends Block {
         player.getHungerManager().setFoodLevel(1);
       },
       (world, server, pos, state, player) -> {
-        if (world.isClient())
-          return;
 
-        pos = pos.up();
+        TaskQueue.queue(() -> {
+          if (world.isClient())
+            return;
 
-        world.setBlockState(pos, Blocks.CHEST.getDefaultState());
-        if (world.getBlockEntity(pos) instanceof ChestBlockEntity) {
-          ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos);
-          chest.setCustomName(Text.of("Trump's Aid to non-whites"));
-        }
-      },
+          world.setBlockState(pos, Blocks.CHEST.getDefaultState());
+          if (world.getBlockEntity(pos) instanceof ChestBlockEntity) {
+            ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos);
+            chest.setCustomName(Text.of("Trump's Aid to non-whites"));
+          }
+        }, 100);
+      }
   };
 
   @Override
