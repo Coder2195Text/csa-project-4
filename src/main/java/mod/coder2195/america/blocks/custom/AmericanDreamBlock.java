@@ -34,38 +34,48 @@ public class AmericanDreamBlock extends Block {
           return;
 
         player.sendMessage(Text.of("You have stepped into Florida."));
-        for (int x = -7; x <= 7; x++) {
-          for (int z = -7; z <= 7; z++) {
+        for (int i = 0; i < 225; i++) {
+          TaskQueue.queue(() -> {
+            if (world.isClient())
+              return;
+
+            int x = (int) (Math.random() * 15) - 7;
+            int z = (int) (Math.random() * 15) - 7;
             BlockPos newPos = pos.add(x, 0, z);
             EntityType.LIGHTNING_BOLT
                 .spawn((ServerWorld) player.getWorld(), newPos, SpawnReason.EVENT);
-          }
+          }, i / 3);
         }
+
       },
       (world, server, pos, state, player) -> {
         if (world.isClient())
           return;
 
-        player.sendMessage(Text.of("You have stepped into Kansas."));
-        for (int x = -7; x <= 7; x++) {
-          for (int z = -7; z <= 7; z++) {
-            for (int y = 255; y > 32; y--) {
-              Block target = world.getBlockState(pos.add(x, 0, z).withY(y)).getBlock();
-              if (!(target == Blocks.GRASS_BLOCK || target == Blocks.DIRT || target == Blocks.FARMLAND))
-                continue;
+        TaskQueue.queue(() -> {
+          if (world.isClient())
+            return;
+          player.sendMessage(Text.of("You have stepped into Kansas."));
+          for (int x = -7; x <= 7; x++) {
+            for (int z = -7; z <= 7; z++) {
+              for (int y = 255; y > -63; y--) {
+                Block target = world.getBlockState(pos.add(x, 0, z).withY(y)).getBlock();
+                if (!(target == Blocks.GRASS_BLOCK || target == Blocks.DIRT || target == Blocks.FARMLAND))
+                  continue;
 
-              BlockState targetUp = world.getBlockState(pos.add(x, 0, z).withY(y + 1));
-              if (!targetUp.isReplaceable())
-                break;
+                BlockState targetUp = world.getBlockState(pos.add(x, 0, z).withY(y + 1));
+                if (!targetUp.isReplaceable())
+                  break;
 
-              CropBlock crop = (CropBlock) Blocks.WHEAT;
+                CropBlock crop = (CropBlock) Blocks.WHEAT;
 
-              // set to farmland
-              world.setBlockState(pos.add(x, 0, z).withY(y), Blocks.FARMLAND.getDefaultState());
-              world.setBlockState(pos.add(x, 0, z).withY(y + 1), crop.withAge(7));
+                // set to farmland
+                world.setBlockState(pos.add(x, 0, z).withY(y), Blocks.FARMLAND.getDefaultState());
+                world.setBlockState(pos.add(x, 0, z).withY(y + 1), crop.withAge(7));
+              }
             }
           }
-        }
+        }, 1);
 
       },
       (world, server, pos, state, player) -> {
@@ -81,7 +91,8 @@ public class AmericanDreamBlock extends Block {
         player.getHungerManager().setFoodLevel(1);
       },
       (world, server, pos, state, player) -> {
-
+        if (world.isClient())
+          return;
         TaskQueue.queue(() -> {
           if (world.isClient())
             return;
@@ -91,7 +102,7 @@ public class AmericanDreamBlock extends Block {
             ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos);
             chest.setCustomName(Text.of("Trump's Aid to non-whites"));
           }
-        }, 100);
+        }, 1);
       }
   };
 
@@ -103,8 +114,8 @@ public class AmericanDreamBlock extends Block {
 
       MinecraftServer server = world.getServer();
 
-      // int roll = (int) (Math.random() * rolls.length);
-      int roll = 3;
+      int roll = (int) (Math.random() * rolls.length);
+      // int roll = 3;
       rolls[roll].roll(world, server, pos, state, player);
     }
 
