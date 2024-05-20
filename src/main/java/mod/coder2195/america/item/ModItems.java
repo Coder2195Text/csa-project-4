@@ -3,6 +3,7 @@ package mod.coder2195.america.item;
 import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.blocks.ModBlocks;
 import mod.coder2195.america.item.custom.Gun;
+import mod.coder2195.america.item.custom.Shotgun;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -79,8 +80,10 @@ public class ModItems {
     }
   });
 
+  public static final Item MOSS590 = registerItem("moss590", new Shotgun());
+
   public static final Item[] GUNS = new Item[] { ModItems.AR15, ModItems.M24, ModItems.AK47, ModItems.M4A1,
-      ModItems.MINIGUN };
+      ModItems.MINIGUN, ModItems.MOSS590 };
 
   public static final Item COMMUNIST_BADGE = registerItem("communist_badge", new Item(new FabricItemSettings()));
   public static final Item AMERICAN_BADGE = registerItem("american_badge", new Item(new FabricItemSettings()));

@@ -46,7 +46,7 @@ public class ReloadC2SPacket {
           1f);
       for (int i = 0; i < inventory.size(); i++) {
         ItemStack stack = inventory.getStack(i);
-        if (stack.getItem() == ModItems.BULLET) {
+        if (stack.getItem() == gun.AMMO) {
           if (stack.getCount() > target) {
             stack.decrement(target);
             ammo = capacity;

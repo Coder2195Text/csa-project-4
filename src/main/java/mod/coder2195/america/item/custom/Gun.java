@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
@@ -75,11 +76,13 @@ public abstract class Gun extends Item {
     long currentTime = world.getTime();
     int ammo = tag.getInt("ammo");
 
-    if (!world.isClient) {
-      if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative())
+    if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative())
           || currentTime - reloadTime < RELOAD_TIME * 20) {
         return TypedActionResult.fail(item);
       }
+
+    if (!world.isClient) {
+      
       world.playSound(
           null,
           user.getBlockPos(),
