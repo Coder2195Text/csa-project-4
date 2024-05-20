@@ -4,12 +4,16 @@ import mod.coder2195.america.entity.ModEntities;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import mod.coder2195.effects.ModDamageTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtType;
+import net.minecraft.nbt.NbtTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -18,6 +22,7 @@ import net.minecraft.world.World;
 public class BulletEntity extends PersistentProjectileEntity {
   private static ItemStack DEFAULT_STACK = new ItemStack(ModItems.BULLET);
   private float damage = 8;
+  private boolean despawn = false;
 
   @Override
   protected SoundEvent getHitSound() {
@@ -26,7 +31,11 @@ public class BulletEntity extends PersistentProjectileEntity {
 
   @Override
   protected void onBlockHit(BlockHitResult blockHitResult) {
-    // TODO Auto-generated method stub
+    if (despawn) {
+      this.discard();
+      return;
+    }
+
     super.onBlockHit(blockHitResult);
 
     setSound(ModSounds.BULLET_HIT);
@@ -50,6 +59,11 @@ public class BulletEntity extends PersistentProjectileEntity {
     this.speed = speed;
   }
 
+  public BulletEntity(World world, LivingEntity owner, float damage, float speed, boolean despawn) {
+    this(world, owner, damage, speed);
+    this.despawn = despawn;
+  }
+
   @Override
   protected void onEntityHit(EntityHitResult entityHitResult) {
     Entity entity = entityHitResult.getEntity();
@@ -69,5 +83,21 @@ public class BulletEntity extends PersistentProjectileEntity {
 
     entity.damage(damageSource, damage);
     this.discard();
+  }
+
+  @Override
+  public void writeCustomDataToNbt(NbtCompound nbt) {
+    super.writeCustomDataToNbt(nbt);
+    nbt.putFloat("damage", damage);
+    nbt.putBoolean("despawn", despawn);
+  }
+
+  @Override
+  public void readCustomDataFromNbt(NbtCompound nbt) {
+    super.readCustomDataFromNbt(nbt);
+    if (nbt.contains(ID_KEY, NbtCompound.FLOAT_TYPE))
+      damage = nbt.getFloat("damage");
+
+    despawn = nbt.getBoolean("despawn");
   }
 }

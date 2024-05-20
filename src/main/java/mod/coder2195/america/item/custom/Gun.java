@@ -9,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
@@ -77,12 +76,11 @@ public abstract class Gun extends Item {
     int ammo = tag.getInt("ammo");
 
     if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative())
-          || currentTime - reloadTime < RELOAD_TIME * 20) {
-        return TypedActionResult.fail(item);
-      }
+        || currentTime - reloadTime < RELOAD_TIME * 20) {
+      return TypedActionResult.fail(item);
+    }
 
     if (!world.isClient) {
-      
       world.playSound(
           null,
           user.getBlockPos(),
@@ -91,16 +89,23 @@ public abstract class Gun extends Item {
           1f,
           1f);
 
-      BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED);
+      action(world, user, hand);
 
-      bulletEntity.setVelocity(user, user.getPitch(),
-          user.getYaw(), 0.0F, SPEED, VARIANCE);
-      world.spawnEntity(bulletEntity);
       tag.putLong("lastFire", currentTime);
       if (!user.isCreative()) {
         tag.putInt("ammo", ammo - 1);
       }
     }
     return TypedActionResult.success(user.getStackInHand(hand), false);
+  }
+
+  public void action(World world, PlayerEntity user, Hand hand) {
+
+    BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED);
+
+    bulletEntity.setVelocity(user, user.getPitch(),
+        user.getYaw(), 0.0F, SPEED, VARIANCE);
+    world.spawnEntity(bulletEntity);
+
   }
 }

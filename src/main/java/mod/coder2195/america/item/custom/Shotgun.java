@@ -26,42 +26,14 @@ public class Shotgun extends Gun {
   public int PELLETS = 10;
 
   @Override
-  public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+  public void action(World world, PlayerEntity user, Hand hand) {
+    for (int i = 0; i < PELLETS; i++) {
+      BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED, true);
 
-    ItemStack item = user.getStackInHand(hand);
-    NbtCompound tag = item.getOrCreateNbt();
-    long lastFire = tag.getLong("lastFire");
-    long reloadTime = tag.getLong("reloadTime");
-    long currentTime = world.getTime();
-    int ammo = tag.getInt("ammo");
-
-    if (currentTime - lastFire < FIRE_DELAY || (ammo <= 0 && !user.isCreative())
-    || currentTime - reloadTime < RELOAD_TIME * 20) {
-  return TypedActionResult.fail(item);
-}
-
-    if (!world.isClient) {
-      for (int i = 0; i < PELLETS; i++) {
-        world.playSound(
-            null,
-            user.getBlockPos(),
-            FIRE_SOUND,
-            SoundCategory.PLAYERS,
-            1f,
-            1f);
-
-        BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED);
-
-        bulletEntity.setVelocity(user, user.getPitch(),
-            user.getYaw(), 0.0F, SPEED, VARIANCE);
-        world.spawnEntity(bulletEntity);
-        tag.putLong("lastFire", currentTime);
-        if (!user.isCreative()) {
-          tag.putInt("ammo", ammo - 1);
-        }
-      }
+      bulletEntity.setVelocity(user, user.getPitch(),
+          user.getYaw(), 0.0F, SPEED, VARIANCE);
+      world.spawnEntity(bulletEntity);
     }
-    return TypedActionResult.success(user.getStackInHand(hand), false);
   }
 
 }
