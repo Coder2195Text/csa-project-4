@@ -21,6 +21,9 @@ public class ModSounds {
 
   public static final SoundEvent MINIGUN_FIRE = registerSoundEvent("item.minigun.fire");
 
+  public static final SoundEvent SHOTGUN_FIRE = registerSoundEvent("item.shotgun.fire");
+  public static final SoundEvent SHOTGUN_RELOAD = registerSoundEvent("item.shotgun.reload");
+
   public static SoundEvent registerSoundEvent(String name) {
     Identifier id = new Identifier(AmericaMod.MOD_ID, name);
     return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));

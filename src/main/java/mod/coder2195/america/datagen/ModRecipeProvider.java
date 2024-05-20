@@ -12,12 +12,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
 	public ModRecipeProvider(FabricDataOutput output) {
 		super(output);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void generate(RecipeExporter exporter) {
-		// TODO Auto-generated method stub
 		ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.BULLET, 9).pattern("G#W")
 				.input('#', Items.COPPER_INGOT).input('W', Items.IRON_INGOT).input('G', Items.GUNPOWDER)
 				.criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
@@ -30,6 +28,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				.criterion(hasItem(Items.BREAD), conditionsFromItem(Items.BREAD))
 				.criterion(hasItem(Items.COOKED_BEEF), conditionsFromItem(Items.COOKED_BEEF))
 				.offerTo(exporter);
+
+		ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.SHOTGUN_CARTRIDGE, 4).pattern("WG#").pattern("WG#")
+				.input('#', Items.COPPER_INGOT).input('W', Items.IRON_INGOT).input('G', Items.GUNPOWDER)
+				.criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+				.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+				.criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
+				.offerTo(exporter);
+
 	}
 
 }

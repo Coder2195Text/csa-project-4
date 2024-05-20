@@ -32,7 +32,7 @@ public class ReloadC2SPacket {
 
       // early return for if the gun is already full, reloading, or out of bullets,
       // respectively
-      if (ammo == capacity || currentTime - reloadTime < gun.RELOAD_TIME * 20 || inventory.count(ModItems.BULLET) == 0)
+      if (ammo == capacity || currentTime - reloadTime < gun.RELOAD_TIME * 20 || inventory.count(gun.AMMO) == 0)
         return;
 
       int target = capacity - ammo;

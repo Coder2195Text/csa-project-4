@@ -1,6 +1,7 @@
 package mod.coder2195.america.item.custom;
 
 import mod.coder2195.america.entity.custom.BulletEntity;
+import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.Entity;
@@ -24,6 +25,7 @@ public abstract class Gun extends Item {
   public float DAMAGE = 6;
   public float SPEED = 30;
   public int DEFAULT_MAX_USE_TIME = 0;
+  public Item AMMO = ModItems.BULLET;
   public int FIRE_DELAY = 5;
   public boolean SCOPED = false;
   public float ZOOM_FOV = 0.75f;

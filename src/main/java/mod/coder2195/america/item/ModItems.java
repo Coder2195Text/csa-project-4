@@ -19,6 +19,8 @@ import net.minecraft.util.Rarity;
 public class ModItems {
 
   public static final Item BULLET = registerItem("bullet", new Item(new FabricItemSettings()));
+  public static final Item SHOTGUN_CARTRIDGE = registerItem("shotgun_cartridge", new Item(new FabricItemSettings()));
+
   public static final Item ANTHEM_DISC = registerItem("music_disc_anthem",
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
   public static final Item BURGER = registerItem("burger",

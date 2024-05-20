@@ -18,6 +18,7 @@ public class ModItemGroups {
           .displayName(Text.translatable("itemgroup.america_weapons"))
           .icon(() -> new ItemStack(ModItems.BULLET)).entries((display, entries) -> {
             entries.add(ModItems.BULLET);
+            entries.add(ModItems.SHOTGUN_CARTRIDGE);
             for (Item gun : ModItems.GUNS) {
               entries.add(gun);
             }
