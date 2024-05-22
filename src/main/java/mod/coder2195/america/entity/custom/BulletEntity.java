@@ -12,6 +12,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -19,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class BulletEntity extends PersistentProjectileEntity {
-  private static ItemStack DEFAULT_STACK = new ItemStack(ModItems.BULLET);
+  private final static ItemStack DEFAULT_STACK = new ItemStack(ModItems.BULLET);
   private float damage = 8;
   private boolean despawn = false;
   private Vec3d before = this.getPos();
@@ -30,10 +31,13 @@ public class BulletEntity extends PersistentProjectileEntity {
     return ModSounds.BULLET_HIT;
   }
 
+
   @Override
   protected void onBlockHit(BlockHitResult blockHitResult) {
+    spawnParticles(blockHitResult.getPos());
+
     if (despawn) {
-      this.discardParticles();
+      this.discard();
       return;
     }
 
@@ -68,11 +72,13 @@ public class BulletEntity extends PersistentProjectileEntity {
   }
 
   public void spawnParticles(Vec3d after) {
-    if (this.getWorld().isClient() && !this.inGround) {
-      for (int i = 0; i < 10; ++i) {
-        double progress = i / 10.0;
-        this.getWorld().addParticle(ParticleTypes.CRIT, before.x + (after.x - before.x) * progress,
-            before.y + (after.y - before.y) * progress, before.z + (after.z - before.z) * progress, 0, 0, 0);
+    World world = this.getWorld();
+    if (!world.isClient && !this.inGround && world instanceof ServerWorld server) {
+      double distance = before.distanceTo(after);
+      for (double i = 0; i < distance; i += 1) {
+        double progress = i / distance;
+        server.spawnParticles(ParticleTypes.CRIT, before.x + (after.x - before.x) * progress,
+            before.y + (after.y - before.y) * progress, before.z + (after.z - before.z) * progress, 1, 0, 0, 0, 0);
       }
     }
   }
@@ -80,7 +86,7 @@ public class BulletEntity extends PersistentProjectileEntity {
   @Override
   public void tick() {
 
-    
+
     Vec3d after = this.getPos();
     spawnParticles(after);
 
@@ -95,7 +101,6 @@ public class BulletEntity extends PersistentProjectileEntity {
 
     Entity owner = this.getOwner();
 
-
     DamageSource damageSource;
     if (owner == null) {
       damageSource = ModDamageTypes.of(getWorld(), ModDamageTypes.BULLET);
@@ -106,21 +111,13 @@ public class BulletEntity extends PersistentProjectileEntity {
         livingEntity.onAttacking(entity);
       }
     }
-    
+
 
     entity.damage(damageSource, damage);
-    
-    this.discardParticles();
-  }
 
-  public void discardParticles() {
-    if (this.getWorld().isClient()) {
-      for (int i = 0; i < 10; ++i) {
-        this.getWorld().addParticle(ParticleTypes.CRIT, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
-      }
-    }
+    spawnParticles(entity.getPos());
 
-    discard();
+    this.discard();
   }
 
   @Override
@@ -128,14 +125,18 @@ public class BulletEntity extends PersistentProjectileEntity {
     super.writeCustomDataToNbt(nbt);
     nbt.putFloat("damage", damage);
     nbt.putBoolean("despawn", despawn);
+    nbt.putDouble("beforeX", before.x);
+    nbt.putDouble("beforeY", before.y);
+    nbt.putDouble("beforeZ", before.z);
   }
 
   @Override
   public void readCustomDataFromNbt(NbtCompound nbt) {
     super.readCustomDataFromNbt(nbt);
-    if (nbt.contains(ID_KEY, NbtCompound.FLOAT_TYPE))
+    if (nbt.contains("damage", NbtCompound.FLOAT_TYPE))
       damage = nbt.getFloat("damage");
 
     despawn = nbt.getBoolean("despawn");
+    before = new Vec3d(nbt.getDouble("beforeX"), nbt.getDouble("beforeY"), nbt.getDouble("beforeZ"));
   }
 }
