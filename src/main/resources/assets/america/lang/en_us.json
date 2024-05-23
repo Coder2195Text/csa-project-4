@@ -26,6 +26,7 @@
   "item.america.m4a1": "M4A1",
   "item.america.minigun": "Minigun",
   "item.america.moss590": "Mossberg 590",
+  "item.america.deagle": "Desert Eagle",
 
   "death.attack.bullet": "%s was gunned down by %s",
   "death.attack.bullet.item": "%s was gunned down by %s using %s",
@@ -36,4 +37,5 @@
   "death.attack.sniper.item": "%s was sniped by %s using %s",
   "death.attack.sniper.player": "%s was sniped whilst trying to escape %s",
   "death.attack.sniper.player.item": "%s was sniped whilst trying to escape %s using %s"
+
 }

@@ -46,6 +46,19 @@ public class ModItems {
     }
   });
 
+  public static final Item DEAGLE = registerItem("deagle", new Gun() {
+    {
+      DAMAGE = 6f;
+      SPEED = 20;
+      AMMO_CAPACITY = 6;
+      FIRE_SOUND = ModSounds.PISTOL_FIRE;
+      RELOAD_SOUND = ModSounds.PISTOL_RELOAD;
+
+      FIRE_DELAY = 10;
+      VARIANCE = 1f;
+    }
+  });
+
   // implement ak47 + communist badge
   public static final Item AK47 = registerItem("ak47", new Gun() {
     {
@@ -82,8 +95,7 @@ public class ModItems {
 
   public static final Item MOSS590 = registerItem("moss590", new Shotgun());
 
-  public static final Item[] GUNS = new Item[] { ModItems.AR15, ModItems.M24, ModItems.AK47, ModItems.M4A1,
-      ModItems.MINIGUN, ModItems.MOSS590 };
+  public static final Item[] GUNS = new Item[] { AR15, M24, DEAGLE, AK47, M4A1, MINIGUN, MOSS590 };
 
   public static final Item COMMUNIST_BADGE = registerItem("communist_badge", new Item(new FabricItemSettings()));
   public static final Item AMERICAN_BADGE = registerItem("american_badge", new Item(new FabricItemSettings()));

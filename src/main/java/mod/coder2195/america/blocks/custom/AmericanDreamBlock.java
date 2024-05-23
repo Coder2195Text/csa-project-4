@@ -33,6 +33,12 @@ public class AmericanDreamBlock extends Block {
         if (world.isClient())
           return;
 
+        // test code whatever here
+      },
+      (world, server, pos, state, player) -> {
+        if (world.isClient())
+          return;
+
         player.sendMessage(Text.of("You have stepped into Florida."));
         for (int i = 0; i < 225; i++) {
           TaskQueue.queue(() -> {
@@ -114,9 +120,9 @@ public class AmericanDreamBlock extends Block {
 
       MinecraftServer server = world.getServer();
 
-      int roll = (int) (Math.random() * rolls.length);
-      // int roll = 3;
-      rolls[roll].roll(world, server, pos, state, player);
+//      int roll = (int) (Math.random() * rolls.length);
+       int roll = 0;
+       rolls[roll].roll(world, server, pos, state, player);
     }
 
     return state;
