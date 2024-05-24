@@ -6,6 +6,7 @@ import mod.coder2195.america.event.KeyEventHandler;
 import mod.coder2195.america.networking.ModMessages;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
 public class AmericaModClient implements ClientModInitializer {
   @Override
@@ -13,6 +14,7 @@ public class AmericaModClient implements ClientModInitializer {
     AmericaMod.LOGGER.info("Hello Fabric world! (Client)");
 
     EntityRendererRegistry.register(ModEntities.BULLET, BulletEntityRenderer::new);
+    EntityRendererRegistry.register(ModEntities.SMOKE_GRENADE, FlyingItemEntityRenderer::new);
 
     KeyEventHandler.register();
 

@@ -1,6 +1,7 @@
 {
   "item.america.bullet": "Bullet",
-  "item.america.shotgun_cartridge": "Shotgun Cartridge",
+  "item.america.shotgun_cartridge": "Shotgun Shell",
+  "item.america.smoke_grenade": "Smoke Grenade",
   "sounds.america.anthem": "National Anthem Plays",
   "item.america.music_disc_anthem": "Music Disc",
   "item.america.music_disc_anthem.desc": "AMERICAAAAAAAAAAA",
@@ -12,6 +13,7 @@
   "sounds.america.fire": "Gunshot",
   "sounds.america.reload": "Gun Reloads",
   "sounds.america.bullet_hit": "Bullet Thuds",
+  "sounds.america.smoke_grenade_detonate": "Smoke Grenade Detonates",
   "entity.america.bullet": "Bullet",
 
   "key.america.reload": "Reload",

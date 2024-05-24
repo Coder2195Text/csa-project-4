@@ -4,11 +4,7 @@ import mod.coder2195.america.entity.custom.BulletEntity;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class Shotgun extends Gun {
@@ -17,7 +13,7 @@ public class Shotgun extends Gun {
     RELOAD_TIME = 2.5;
     FIRE_SOUND = ModSounds.SHOTGUN_FIRE;
     RELOAD_SOUND = ModSounds.SHOTGUN_RELOAD;
-    AMMO = ModItems.SHOTGUN_CARTRIDGE;
+    AMMO = ModItems.SHOTGUN_SHELL;
     FIRE_DELAY = 10;
     VARIANCE = 10f;
     DAMAGE = 3;

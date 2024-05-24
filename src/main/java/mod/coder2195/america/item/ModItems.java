@@ -4,6 +4,7 @@ import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.blocks.ModBlocks;
 import mod.coder2195.america.item.custom.Gun;
 import mod.coder2195.america.item.custom.Shotgun;
+import mod.coder2195.america.item.custom.SmokeGrenade;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -20,7 +21,7 @@ import net.minecraft.util.Rarity;
 public class ModItems {
 
   public static final Item BULLET = registerItem("bullet", new Item(new FabricItemSettings()));
-  public static final Item SHOTGUN_CARTRIDGE = registerItem("shotgun_cartridge", new Item(new FabricItemSettings()));
+  public static final Item SHOTGUN_SHELL = registerItem("shotgun_shell", new Item(new FabricItemSettings()));
 
   public static final Item ANTHEM_DISC = registerItem("music_disc_anthem",
       new MusicDiscItem(7, ModSounds.ANTHEM, new FabricItemSettings().maxCount(1).rarity(Rarity.RARE), 78));
@@ -99,6 +100,8 @@ public class ModItems {
 
   public static final Item COMMUNIST_BADGE = registerItem("communist_badge", new Item(new FabricItemSettings()));
   public static final Item AMERICAN_BADGE = registerItem("american_badge", new Item(new FabricItemSettings()));
+
+  public static final Item SMOKE_GRENADE = registerItem("smoke_grenade", new SmokeGrenade());
 
   private static void addToFood(FabricItemGroupEntries entries) {
     entries.add(BURGER);

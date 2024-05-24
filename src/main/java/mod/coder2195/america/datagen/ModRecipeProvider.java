@@ -30,7 +30,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				.criterion(hasItem(Items.COOKED_BEEF), conditionsFromItem(Items.COOKED_BEEF))
 				.offerTo(exporter);
 
-		ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.SHOTGUN_CARTRIDGE, 4).pattern("WG#").pattern("WG#")
+		ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.SHOTGUN_SHELL, 4).pattern("WG#").pattern("WG#")
 				.input('#', Items.COPPER_INGOT).input('W', Items.IRON_INGOT).input('G', Items.GUNPOWDER)
 				.criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.GOLD_INGOT))
 				.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
