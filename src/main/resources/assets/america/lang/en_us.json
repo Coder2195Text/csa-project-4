@@ -2,19 +2,26 @@
   "item.america.bullet": "Bullet",
   "item.america.shotgun_cartridge": "Shotgun Shell",
   "item.america.smoke_grenade": "Smoke Grenade",
-  "sounds.america.anthem": "National Anthem Plays",
+  "item.america.grenade": "Grenade",
   "item.america.music_disc_anthem": "Music Disc",
   "item.america.music_disc_anthem.desc": "AMERICAAAAAAAAAAA",
   "item.america.burger": "Burger",
+
   "block.america.american_dream_block": "American Dream Block",
   "block.america.reinforced_iron": "Reinforced Iron",
+
   "itemgroup.america_weapons": "America++ Weapons",
 
   "sounds.america.fire": "Gunshot",
   "sounds.america.reload": "Gun Reloads",
   "sounds.america.bullet_hit": "Bullet Thuds",
   "sounds.america.smoke_grenade_detonate": "Smoke Grenade Detonates",
+  "sounds.america.bullet_success": "Successful Bullet Hit",
+
   "entity.america.bullet": "Bullet",
+  "entity.america.granade": "Grenade",
+    "entity.america.smoke_grenade": "Smoke Grenade",
+  "entity.america.m1a2": "M1A2 Abrams",
 
   "key.america.reload": "Reload",
   "key.america.zoom": "Zoom Gun",
@@ -29,6 +36,7 @@
   "item.america.minigun": "Minigun",
   "item.america.moss590": "Mossberg 590",
   "item.america.deagle": "Desert Eagle",
+
 
   "death.attack.bullet": "%s was gunned down by %s",
   "death.attack.bullet.item": "%s was gunned down by %s using %s",

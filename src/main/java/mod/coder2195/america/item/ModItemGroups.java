@@ -23,6 +23,7 @@ public class ModItemGroups {
               entries.add(gun);
             }
             entries.add(ModItems.SMOKE_GRENADE);
+            entries.add(ModItems.GRENADE);
           }).build());
 
   public static void registerItemGroups() {

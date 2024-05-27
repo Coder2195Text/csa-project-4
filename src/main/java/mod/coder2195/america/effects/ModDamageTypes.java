@@ -1,4 +1,4 @@
-package mod.coder2195.effects;
+package mod.coder2195.america.effects;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -2,7 +2,7 @@ package mod.coder2195.america.datagen;
 
 import java.util.concurrent.CompletableFuture;
 
-import mod.coder2195.effects.ModDamageTypes;
+import mod.coder2195.america.effects.ModDamageTypes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.entity.damage.DamageType;

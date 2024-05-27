@@ -1,11 +1,9 @@
 package mod.coder2195.america.entity.custom;
 
-import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.entity.ModEntities;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import mod.coder2195.america.utils.TaskQueue;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
@@ -51,8 +49,12 @@ public class SmokeGrenadeEntity extends ThrownItemEntity {
         TaskQueue.queue(
             () -> {
               if (world.isClient) return;
-              for (int i = 0; i < 50; i++) {
-                Vec3d newPos = new Vec3d(pos.x + Math.random() * 4 - 2, pos.y + Math.random() * 3, pos.z + Math.random() * 4 - 2);
+              for (int i = 0; i < 75; i++) {
+                double r = 3.5 * Math.sqrt(Math.random());
+                double theta = Math.random() * 2 * Math.PI;
+                double x = r * Math.cos(theta);
+                double z = r * Math.sin(theta);
+                Vec3d newPos = new Vec3d(pos.x + x, pos.y + Math.random() * 4-1, pos.z +z);
                 server.spawnParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, newPos.getX(), newPos.getY(), newPos.getZ(), 1, 0, 0, 0, 0);
               }
             }, t * 8);
@@ -64,7 +66,7 @@ public class SmokeGrenadeEntity extends ThrownItemEntity {
 
   @Override
   protected void onEntityHit(EntityHitResult entityHitResult) {
-    if (entityHitResult.getEntity() != this.getOwner())
+    if (this.getWorld().isClient) return;
     detonate();
   }
 

@@ -89,5 +89,9 @@
   "entity.smoke_grenade.detonate": {
     "subtitle": "sounds.america.smoke_grenade_detonate",
     "sounds": [{ "name": "america:entity/grenades/smoke_grenade" }]
+  },
+  "entity.bullet.success": {
+    "subtitle": "sounds.america.bullet_success",
+    "sounds": [{ "name": "america:entity/bullet/success1" }, { "name": "america:entity/bullet/success2" }, { "name": "america:entity/bullet/success3" }, { "name": "america:entity/bullet/success4" }, { "name": "america:entity/bullet/success5" }]
   }
 }

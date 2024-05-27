@@ -2,9 +2,11 @@ package mod.coder2195.america.item;
 
 import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.blocks.ModBlocks;
+import mod.coder2195.america.entity.custom.GrenadeEntity;
+import mod.coder2195.america.entity.custom.SmokeGrenadeEntity;
 import mod.coder2195.america.item.custom.Gun;
 import mod.coder2195.america.item.custom.Shotgun;
-import mod.coder2195.america.item.custom.SmokeGrenade;
+import mod.coder2195.america.item.custom.Grenade;
 import mod.coder2195.america.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -101,7 +103,16 @@ public class ModItems {
   public static final Item COMMUNIST_BADGE = registerItem("communist_badge", new Item(new FabricItemSettings()));
   public static final Item AMERICAN_BADGE = registerItem("american_badge", new Item(new FabricItemSettings()));
 
-  public static final Item SMOKE_GRENADE = registerItem("smoke_grenade", new SmokeGrenade());
+  public static final Item SMOKE_GRENADE = registerItem("smoke_grenade", new Grenade() {
+    {
+      GRENADE = SmokeGrenadeEntity.class;
+    }
+  });
+  public static final Item GRENADE = registerItem("grenade", new Grenade() {
+    {
+      GRENADE = GrenadeEntity.class;
+    }
+  });
 
   private static void addToFood(FabricItemGroupEntries entries) {
     entries.add(BURGER);

@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 
 import mod.coder2195.america.AmericaMod;
-import mod.coder2195.effects.ModDamageTypes;
+import mod.coder2195.america.effects.ModDamageTypes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.DataOutput.OutputType;
 import net.minecraft.data.DataOutput.PathResolver;

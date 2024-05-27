@@ -8,7 +8,7 @@ import mod.coder2195.america.datagen.ModItemTagProvider;
 import mod.coder2195.america.datagen.ModLootTableProvider;
 import mod.coder2195.america.datagen.ModModelProvider;
 import mod.coder2195.america.datagen.ModRecipeProvider;
-import mod.coder2195.effects.ModDamageTypes;
+import mod.coder2195.america.effects.ModDamageTypes;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;

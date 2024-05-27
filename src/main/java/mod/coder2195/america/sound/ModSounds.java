@@ -25,6 +25,7 @@ public class ModSounds {
   public static final SoundEvent SHOTGUN_RELOAD = registerSoundEvent("item.shotgun.reload");
 
   public static final SoundEvent SMOKE_GRENADE_DETONATE = registerSoundEvent("entity.smoke_grenade.detonate");
+  public static final SoundEvent BULLET_SUCCESS = registerSoundEvent("entity.bullet.success");
 
   public static SoundEvent registerSoundEvent(String name) {
     Identifier id = new Identifier(AmericaMod.MOD_ID, name);

@@ -3,7 +3,7 @@ package mod.coder2195.america.entity.custom;
 import mod.coder2195.america.entity.ModEntities;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
-import mod.coder2195.effects.ModDamageTypes;
+import mod.coder2195.america.effects.ModDamageTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,8 +11,12 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -25,6 +29,11 @@ public class BulletEntity extends PersistentProjectileEntity {
   private boolean despawn = false;
   private Vec3d before = this.getPos();
 
+  @Override
+  public boolean isSilent() {
+    // used to enforce the dist
+    return true;
+  }
 
   @Override
   protected SoundEvent getHitSound() {
@@ -34,6 +43,7 @@ public class BulletEntity extends PersistentProjectileEntity {
 
   @Override
   protected void onBlockHit(BlockHitResult blockHitResult) {
+
     spawnParticles(blockHitResult.getPos());
 
     if (despawn) {
@@ -43,7 +53,13 @@ public class BulletEntity extends PersistentProjectileEntity {
 
     super.onBlockHit(blockHitResult);
 
-    setSound(ModSounds.BULLET_HIT);
+    World world = this.getWorld();
+
+    if (world.isClient) return;
+
+
+  world.playSound(null, blockHitResult.getBlockPos(), ModSounds.BULLET_HIT, SoundCategory.BLOCKS, 3f, 1f);
+
   }
 
   public BulletEntity(EntityType<? extends BulletEntity> entityType, World world) {
@@ -97,6 +113,8 @@ public class BulletEntity extends PersistentProjectileEntity {
 
   @Override
   protected void onEntityHit(EntityHitResult entityHitResult) {
+    World world = this.getWorld();
+    if (world.isClient) return;
     Entity entity = entityHitResult.getEntity();
 
     Entity owner = this.getOwner();
@@ -107,13 +125,21 @@ public class BulletEntity extends PersistentProjectileEntity {
     } else {
       damageSource = ModDamageTypes.of(getWorld(),
           owner.distanceTo(entity) > 48 ? ModDamageTypes.SNIPER_BULLET : ModDamageTypes.BULLET, owner);
+
+
+
       if (owner instanceof LivingEntity livingEntity) {
         livingEntity.onAttacking(entity);
+      }
+      if (owner instanceof ServerPlayerEntity player) {
+        Vec3d pos = player.getPos();
+        player.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(ModSounds.BULLET_SUCCESS), SoundCategory.PLAYERS, pos.x, pos.y, pos.z , 1, 1, world.getRandom().nextLong()));
       }
     }
 
 
     entity.damage(damageSource, damage);
+
 
     spawnParticles(entity.getPos());
 

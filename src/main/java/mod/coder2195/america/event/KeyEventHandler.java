@@ -1,5 +1,9 @@
 package mod.coder2195.america.event;
 
+import mod.coder2195.america.entity.custom.M1A2Entity;
+import net.minecraft.entity.Entity;
+import net.minecraft.registry.Registries;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import mod.coder2195.america.networking.ModMessages;
@@ -19,7 +23,15 @@ public class KeyEventHandler {
   public static boolean justReloaded = false;
 
   public static KeyBinding zoomKey;
-  public static boolean isZooming;
+  public static boolean isZooming = false;
+
+  public static boolean isMovingForward = false;
+  public static boolean isMovingBackward = false;
+  public static boolean isMovingLeft = false;
+  public static boolean isMovingRight = false;
+  @Nullable
+  public static Entity vehicle = null;
+
 
   public static void registerKeyInputs() {
     ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -39,7 +51,43 @@ public class KeyEventHandler {
 
     ClientTickEvents.END_CLIENT_TICK.register(client -> {
       isZooming = zoomKey.isPressed();
+
+      if (client.player == null) return;
+
+      boolean forward= client.options.forwardKey.isPressed();
+      boolean backward = client.options.backKey.isPressed();
+      boolean left = client.options.leftKey.isPressed();
+      boolean right = client.options.rightKey.isPressed();
+      int moving = 0;
+
+      if (client.player.getVehicle() instanceof Entity && !client.player.getVehicle().equals(vehicle)) {
+        vehicle = client.player.getVehicle();
+        moving++;
+      } else {
+        vehicle = null;
+      }
+
+      if (forward != isMovingForward) {
+        isMovingForward = forward;
+        moving++;
+      }
+      if (backward != isMovingBackward) {
+        isMovingBackward = backward;
+        moving++;
+      }
+      if (left != isMovingLeft) {
+        isMovingLeft = left;
+        moving++;
+      }
+      if (right != isMovingRight) {
+        isMovingRight = right;
+        moving++;
+      }
+
+      if (moving == 0) return;
     });
+
+    // add minecraft default movemne
 
   }
 
@@ -48,6 +96,7 @@ public class KeyEventHandler {
         .registerKeyBinding(new KeyBinding(KEY_RELOAD, InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, KEY_CATEGORY_AMERICA));
     zoomKey = KeyBindingHelper
         .registerKeyBinding(new KeyBinding(KEY_ZOOM, InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z, KEY_CATEGORY_AMERICA));
+
 
     registerKeyInputs();
   }
