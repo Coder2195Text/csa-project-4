@@ -4,6 +4,7 @@ import mod.coder2195.america.entity.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MovementType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -109,15 +110,9 @@ public class M1A2Entity extends AnimalEntity {
   @Override
   public void tick() {
     setAir(300);
-    if (bodyYaw == null) bodyYaw = this.getBodyYaw();
     super.tick();
-    setBodyYaw(bodyYaw);
-    bodyYaw = null;
     if (getWorld().isClient) return;
-    Vec3d pos = getPos();
-    updatePosition(pos.x, pos.y+1, pos.z);
-
-
+    move(MovementType.SELF, new Vec3d(0, 0, 1));
   }
 
 
