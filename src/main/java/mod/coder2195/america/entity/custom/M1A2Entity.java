@@ -1,5 +1,6 @@
 package mod.coder2195.america.entity.custom;
 
+import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.entity.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,22 +13,24 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class M1A2Entity extends AnimalEntity {
-  @Nullable
-  public Float bodyYaw;
+public class M1A2Entity extends MobEntity {
+  public Float oldBodyYaw;
+    public Float oldHeadYaw;
 
 
 
-  public M1A2Entity(EntityType<? extends AnimalEntity> entityType, World world) {
+  public M1A2Entity(EntityType<? extends MobEntity> entityType, World world) {
     super(entityType, world);
   }
 
@@ -81,14 +84,6 @@ public class M1A2Entity extends AnimalEntity {
     return null;
   }
 
-
-  @Nullable
-  @Override
-  public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-    return ModEntities.M1A2.create(world);
-
-  }
-
   @Override
   public Vec3d getPassengerRidingPos(Entity passenger) {
     Vec3d pos = super.getPassengerRidingPos(passenger).add(0,-1.4,0);
@@ -102,21 +97,19 @@ public class M1A2Entity extends AnimalEntity {
 
   @Override
   public void onPassengerLookAround(Entity passenger) {
-    if (!this.hasPassenger(passenger)) return;
-    this.headYaw = passenger.getHeadYaw();
-    setPitch(MathHelper.clamp(passenger.getPitch(), -30, 0));
+
+    if (!this.hasPassengers()) return;
+    this.setHeadYaw(passenger.getHeadYaw());
+    setPitch(MathHelper.clamp(passenger.getPitch(), -30, 5));
   }
 
   @Override
   public void tick() {
     setAir(300);
     super.tick();
-    if (getWorld().isClient) return;
-    move(MovementType.SELF, new Vec3d(0, 0, 1));
+    onPassengerLookAround(getControllingPassenger());
+
   }
-
-
-
   @Override
   public ActionResult interactMob(PlayerEntity player, Hand hand) {
     boolean client = getWorld().isClient;
