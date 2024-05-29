@@ -1,8 +1,5 @@
 package mod.coder2195.america.event;
 
-import mod.coder2195.america.entity.custom.M1A2Entity;
-import net.minecraft.entity.Entity;
-import net.minecraft.registry.Registries;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -13,6 +10,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.entity.Entity;
 
 public class KeyEventHandler {
   public static final String KEY_CATEGORY_AMERICA = "key.categories.america";

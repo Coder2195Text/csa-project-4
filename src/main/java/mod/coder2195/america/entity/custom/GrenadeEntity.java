@@ -40,13 +40,15 @@ public class GrenadeEntity extends ThrownItemEntity {
 
   @Override
   protected void onEntityHit(EntityHitResult entityHitResult) {
-    if (this.getWorld().isClient) return;
+    World world = this.getWorld();
+    if (world.isClient) return;
     detonate();
   }
 
   @Override
   protected void onBlockHit(BlockHitResult blockHitResult) {
-    if (this.getWorld().isClient) return;
+    World world = this.getWorld();
+    if (world.isClient) return;
     detonate();
   }
 

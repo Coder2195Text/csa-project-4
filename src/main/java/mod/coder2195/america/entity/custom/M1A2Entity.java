@@ -1,34 +1,30 @@
 package mod.coder2195.america.entity.custom;
 
-import mod.coder2195.america.AmericaMod;
-import mod.coder2195.america.entity.ModEntities;
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 public class M1A2Entity extends MobEntity {
   public Float oldBodyYaw;
     public Float oldHeadYaw;
     public Float oldPitch;
+
+    private int gunFireTicks = 0;
 
 
 
@@ -65,11 +61,14 @@ public class M1A2Entity extends MobEntity {
   }
 
 
-
-
   @Override
   public boolean damage(DamageSource source, float amount) {
+   
     if (this.hasPassenger(source.getAttacker())) {
+      World world = getWorld();
+      if (!world.isClient) {
+        gunFireTicks=15;
+      }
       return false;
     }
     return super.damage(source, amount);
@@ -109,13 +108,27 @@ public class M1A2Entity extends MobEntity {
 
   @Override
   public void tick() {
+    World world = getWorld();
+    if (!world.isClient) {
+      if (gunFireTicks > 0) {
+        gunFireTicks--;
+
+        Vec3d firePos = getPos();
+        // update firePos to the barrel of the gun
+        BulletEntity bullet = new BulletEntity(world, firePos.x, firePos.y, firePos.z, ItemStack.EMPTY);
+        // update rotation
+      }
+
+    }
     if (oldPitch == null) oldPitch = this.getPitch();
     if (oldHeadYaw == null) oldHeadYaw = this.getHeadYaw();
     if (oldBodyYaw == null) oldBodyYaw = this.getBodyYaw();
     setAir(300);
     super.tick();
+    Entity passenger = getControllingPassenger();
+    if (passenger != null) {
+    }
     onPassengerLookAround(getControllingPassenger());
-
     setHeadYaw(oldHeadYaw);
     setPitch(oldPitch);
     setBodyYaw(oldBodyYaw);
@@ -128,7 +141,8 @@ public class M1A2Entity extends MobEntity {
 
   @Override
   public ActionResult interactMob(PlayerEntity player, Hand hand) {
-    boolean client = getWorld().isClient;
+    World world = getWorld();
+    boolean client = world.isClient;
     ActionResult result = hasPassenger(player) || couldAcceptPassenger() ? ActionResult.SUCCESS : ActionResult.FAIL;
     if (client) return result;
     if (!result.isAccepted()) return result;

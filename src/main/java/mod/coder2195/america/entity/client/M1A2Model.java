@@ -3,11 +3,8 @@ package mod.coder2195.america.entity.client;
 import mod.coder2195.america.entity.custom.M1A2Entity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 
 // Made with Blockbench 4.10.1
 // Exported for Minecraft version 1.17+ for Yarn
@@ -23,11 +20,13 @@ public class M1A2Model<T extends M1A2Entity> extends SinglePartEntityModel<T> {
     this.barrel = turret.getChild("gun").getChild("barrel");
   }
 
+   @SuppressWarnings("unused")
   public static TexturedModelData getTexturedModelData() {
     ModelData modelData = new ModelData();
     ModelPartData modelPartData = modelData.getRoot();
     ModelPartData over_power = modelPartData.addChild("over_power", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
+   
     ModelPartData track_dust_owner = over_power.addChild("track_dust_owner", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, -22.0F));
 
     ModelPartData ulra_super = over_power.addChild("ulra_super", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -18.0F, -6.0F));

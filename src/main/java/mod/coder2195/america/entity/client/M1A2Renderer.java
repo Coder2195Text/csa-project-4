@@ -11,7 +11,7 @@ public class M1A2Renderer extends MobEntityRenderer<M1A2Entity, M1A2Model<M1A2En
   private static final Identifier TEXTURE = new Identifier("america", "textures/entity/m1a2.png");
 
   public M1A2Renderer(EntityRendererFactory.Context context) {
-    super(context, new M1A2Model(context.getPart(ModModelLayers.M1A2)), 1f);
+    super(context, new M1A2Model<M1A2Entity>(context.getPart(ModModelLayers.M1A2)), 1f);
   }
 
                       @Override

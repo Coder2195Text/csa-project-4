@@ -1,7 +1,6 @@
 package mod.coder2195.america.item.custom;
 
 import mod.coder2195.america.AmericaMod;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;

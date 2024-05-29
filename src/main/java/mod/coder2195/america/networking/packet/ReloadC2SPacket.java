@@ -1,6 +1,5 @@
 package mod.coder2195.america.networking.packet;
 
-import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.item.custom.Gun;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.entity.player.PlayerInventory;
