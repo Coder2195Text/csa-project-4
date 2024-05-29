@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -27,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 public class M1A2Entity extends MobEntity {
   public Float oldBodyYaw;
     public Float oldHeadYaw;
+    public Float oldPitch;
 
 
 
@@ -97,19 +99,33 @@ public class M1A2Entity extends MobEntity {
 
   @Override
   public void onPassengerLookAround(Entity passenger) {
-
     if (!this.hasPassengers()) return;
     this.setHeadYaw(passenger.getHeadYaw());
     setPitch(MathHelper.clamp(passenger.getPitch(), -30, 5));
+
+    oldPitch = this.getPitch();
+    oldHeadYaw = this.getHeadYaw();
   }
 
   @Override
   public void tick() {
+    if (oldPitch == null) oldPitch = this.getPitch();
+    if (oldHeadYaw == null) oldHeadYaw = this.getHeadYaw();
+    if (oldBodyYaw == null) oldBodyYaw = this.getBodyYaw();
     setAir(300);
     super.tick();
     onPassengerLookAround(getControllingPassenger());
 
+    setHeadYaw(oldHeadYaw);
+    setPitch(oldPitch);
+    setBodyYaw(oldBodyYaw);
+
+    oldPitch = null;
+    oldHeadYaw = null;
+    oldBodyYaw = null;
   }
+
+
   @Override
   public ActionResult interactMob(PlayerEntity player, Hand hand) {
     boolean client = getWorld().isClient;
@@ -139,5 +155,23 @@ public class M1A2Entity extends MobEntity {
   @Override
   public boolean cannotBeSilenced() {
     return super.cannotBeSilenced();
+  }
+
+  @Override
+  public void writeCustomDataToNbt(NbtCompound nbt) {
+    super.writeCustomDataToNbt(nbt);
+
+    nbt.putFloat("HeadYaw", getHeadYaw());
+    nbt.putFloat("Pitch", getPitch());
+    nbt.putFloat("BodyYaw", getBodyYaw());
+  }
+
+  @Override
+  public void readCustomDataFromNbt(NbtCompound nbt) {
+    super.readCustomDataFromNbt(nbt);
+
+    oldPitch = nbt.getFloat("Pitch");
+    oldHeadYaw = nbt.getFloat("HeadYaw");
+    oldBodyYaw = nbt.getFloat("BodyYaw");
   }
 }
