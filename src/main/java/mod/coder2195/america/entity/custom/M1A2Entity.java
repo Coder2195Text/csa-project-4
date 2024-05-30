@@ -1,5 +1,9 @@
 package mod.coder2195.america.entity.custom;
 
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.entity.Entity;
@@ -10,7 +14,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -20,13 +23,65 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class M1A2Entity extends MobEntity {
-  public Float oldBodyYaw;
-    public Float oldHeadYaw;
-    public Float oldPitch;
+  public static TrackedData<Float> HEAD_YAW;
+    public static TrackedData<Float> PITCH;
+    public static TrackedData<Float> BODY_YAW;
 
-    private int gunFireTicks = 0;
+  @Override
+  public float getPitch() {
+    return dataTracker.get(PITCH);
+  }
+
+  @Override
+  public int getMaxHeadRotation() {
+    return 360;
+  }
+
+  @Override
+  public float getHeadYaw() {
+    return dataTracker.get(HEAD_YAW);
+  }
+
+    public float getBodyYaw() {
+        return dataTracker.get(BODY_YAW);
+    }
+
+  @Override
+  public float getYaw() {
+    return getBodyYaw();
+  }
+
+  public void setTankPitch(float pitch) {
+        dataTracker.set(PITCH, pitch);
+    }
+
+    public void setTurretYaw(float headYaw) {
+        dataTracker.set(HEAD_YAW, headYaw);
+    }
+
+    public void setTankYaw(float bodyYaw) {
+        dataTracker.set(BODY_YAW, bodyYaw);
+    }
 
 
+  static {
+        HEAD_YAW = DataTracker.registerData(M1A2Entity.class, TrackedDataHandlerRegistry.FLOAT);
+        PITCH = DataTracker.registerData(M1A2Entity.class, TrackedDataHandlerRegistry.FLOAT);
+        BODY_YAW = DataTracker.registerData(M1A2Entity.class, TrackedDataHandlerRegistry.FLOAT);
+    }
+
+  @Override
+  protected void initDataTracker() {
+    super.initDataTracker();
+    dataTracker.startTracking(HEAD_YAW, 0.0F);
+    dataTracker.startTracking(PITCH, 0.0F);
+    dataTracker.startTracking(BODY_YAW, 0.0F);
+  }
+
+  public boolean isLogicalSideForUpdatingMovement() {
+    World world = getWorld();
+    return !world.isClient;
+  }
 
   public M1A2Entity(EntityType<? extends MobEntity> entityType, World world) {
     super(entityType, world);
@@ -67,7 +122,8 @@ public class M1A2Entity extends MobEntity {
     if (this.hasPassenger(source.getAttacker())) {
       World world = getWorld();
       if (!world.isClient) {
-        gunFireTicks=15;
+
+        //fire and set fire ticks
       }
       return false;
     }
@@ -99,43 +155,24 @@ public class M1A2Entity extends MobEntity {
   @Override
   public void onPassengerLookAround(Entity passenger) {
     if (!this.hasPassengers()) return;
-    this.setHeadYaw(passenger.getHeadYaw());
-    setPitch(MathHelper.clamp(passenger.getPitch(), -30, 5));
-
-    oldPitch = this.getPitch();
-    oldHeadYaw = this.getHeadYaw();
+    this.setTurretYaw(passenger.getHeadYaw());
+    setTankPitch(MathHelper.clamp(passenger.getPitch(), -30, 5));
   }
 
   @Override
   public void tick() {
     World world = getWorld();
     if (!world.isClient) {
-      if (gunFireTicks > 0) {
-        gunFireTicks--;
+      // handle movement and guns
 
-        Vec3d firePos = getPos();
-        // update firePos to the barrel of the gun
-        BulletEntity bullet = new BulletEntity(world, firePos.x, firePos.y, firePos.z, ItemStack.EMPTY);
-        // update rotation
-      }
-
+      move(MovementType.SELF, new Vec3d(0, 0, .1));
+      setTankYaw(getBodyYaw() + 1);
     }
-    if (oldPitch == null) oldPitch = this.getPitch();
-    if (oldHeadYaw == null) oldHeadYaw = this.getHeadYaw();
-    if (oldBodyYaw == null) oldBodyYaw = this.getBodyYaw();
+
     setAir(300);
     super.tick();
     Entity passenger = getControllingPassenger();
-    if (passenger != null) {
-    }
     onPassengerLookAround(getControllingPassenger());
-    setHeadYaw(oldHeadYaw);
-    setPitch(oldPitch);
-    setBodyYaw(oldBodyYaw);
-
-    oldPitch = null;
-    oldHeadYaw = null;
-    oldBodyYaw = null;
   }
 
 
@@ -184,8 +221,12 @@ public class M1A2Entity extends MobEntity {
   public void readCustomDataFromNbt(NbtCompound nbt) {
     super.readCustomDataFromNbt(nbt);
 
-    oldPitch = nbt.getFloat("Pitch");
-    oldHeadYaw = nbt.getFloat("HeadYaw");
-    oldBodyYaw = nbt.getFloat("BodyYaw");
+    if (nbt.contains("HeadYaw"))
+    setTurretYaw(nbt.getFloat("HeadYaw"));
+    if (nbt.contains("Pitch"))
+    setTankPitch(nbt.getFloat("Pitch"));
+
+    if (nbt.contains("BodyYaw"))
+    setTankYaw(nbt.getFloat("BodyYaw"));
   }
 }
