@@ -1,5 +1,7 @@
 package mod.coder2195.america.event;
 
+import mod.coder2195.america.entity.custom.M1A2Entity;
+import net.minecraft.network.PacketByteBuf;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -52,7 +54,7 @@ public class KeyEventHandler {
 
       if (client.player == null) return;
 
-      boolean forward= client.options.forwardKey.isPressed();
+      boolean forward = client.options.forwardKey.isPressed();
       boolean backward = client.options.backKey.isPressed();
       boolean left = client.options.leftKey.isPressed();
       boolean right = client.options.rightKey.isPressed();
@@ -83,6 +85,15 @@ public class KeyEventHandler {
       }
 
       if (moving == 0) return;
+      if (vehicle instanceof M1A2Entity tank) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeBoolean(isMovingForward);
+        buf.writeBoolean(isMovingBackward);
+        buf.writeBoolean(isMovingLeft);
+        buf.writeBoolean(isMovingRight);
+
+        ClientPlayNetworking.send(ModMessages.MOVE_TANK_ID, buf);
+      }
     });
 
     // add minecraft default movemne
