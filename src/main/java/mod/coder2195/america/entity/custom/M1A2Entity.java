@@ -171,6 +171,9 @@ public class M1A2Entity extends MobEntity {
 
     setAir(300);
     super.tick();
+    setBodyYaw(getBodyYaw());
+    setHeadYaw(getHeadYaw());
+    
     Entity passenger = getControllingPassenger();
     onPassengerLookAround(getControllingPassenger());
   }
