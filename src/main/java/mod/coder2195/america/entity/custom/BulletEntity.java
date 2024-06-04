@@ -138,10 +138,7 @@ public class BulletEntity extends PersistentProjectileEntity {
     }
 
 
-    entity.damage(damageSource, damage);
-
-
-    spawnParticles(entity.getPos());
+    spawnParticles(entityHitResult.getPos());
 
     this.discard();
   }

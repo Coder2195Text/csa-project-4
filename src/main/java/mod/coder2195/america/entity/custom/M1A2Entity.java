@@ -1,15 +1,20 @@
 package mod.coder2195.america.entity.custom;
 
 import mod.coder2195.america.AmericaMod;
+import mod.coder2195.america.effects.ModDamageTypes;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,6 +28,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -39,6 +45,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 public class M1A2Entity extends MobEntity implements RideableInventory, VehicleInventory {
@@ -158,8 +166,19 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
       }
       return false;
     }
+    else if (isInvulnerableTo(source)) return false;
 
     return super.damage(source, amount);
+  }
+
+  @Override
+  public boolean isInvulnerableTo(DamageSource source) {
+    // turn into list
+    RegistryKey<DamageType>[] types = new RegistryKey[]{DamageTypes.MOB_PROJECTILE, DamageTypes.ARROW, ModDamageTypes.BULLET, ModDamageTypes.SNIPER_BULLET, DamageTypes.CACTUS, DamageTypes.STING, DamageTypes.THORNS, DamageTypes.SWEET_BERRY_BUSH};
+    for (RegistryKey<DamageType> type : types) {
+      if (source.isOf(type)) return true;
+    }
+    return false;
   }
 
   @Nullable
@@ -199,6 +218,7 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
       if (cannonTicks > 0) {
         cannonTicks--;
       }
+      addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100, 3, true, false));
       if (!hasPassengers()) {
         movingUp = movingDown = movingLeft = movingRight = false;
       }
@@ -277,6 +297,15 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
       if (cannonTicks <= 0) {
         cannonTicks = 150;
 
+        Vec3d pos = getPos()
+            .add(0, 27.0 / 16, 0)
+            .add(new Vec3d(0, 0, 0.5).rotateY(-getBodyYaw() * 0.017453292F))
+            .add(new Vec3d(0, 0, 12.0 / 16).rotateY(-getHeadYaw() * 0.017453292F))
+            .add(new Vec3d(2.0 / 16, 0, 54.0 / 16).rotateY(-getHeadYaw() * 0.017453292F).rotateZ(getPitch() * 0.017453292F));
+
+        if (world instanceof ServerWorld server) {
+          server.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 1, 0, 0, 0, 0);
+        }
 
         for (var p : world.getPlayers()) {
           if (p instanceof ServerPlayerEntity serverPlayer) {
