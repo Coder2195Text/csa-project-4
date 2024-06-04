@@ -1,30 +1,47 @@
 package mod.coder2195.america.entity.custom;
 
-import net.minecraft.entity.MovementType;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import mod.coder2195.america.AmericaMod;
+import mod.coder2195.america.item.ModItems;
+import mod.coder2195.america.sound.ModSounds;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
+import net.minecraft.entity.vehicle.VehicleInventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
-public class M1A2Entity extends MobEntity {
+import java.util.Set;
+
+public class M1A2Entity extends MobEntity implements RideableInventory, VehicleInventory {
   public static TrackedData<Float> HEAD_YAW;
   public static TrackedData<Float> PITCH;
   public static TrackedData<Float> BODY_YAW;
@@ -34,6 +51,12 @@ public class M1A2Entity extends MobEntity {
   public boolean movingLeft = false;
   public boolean movingRight = false;
   private int fireTicks = 0;
+  private int cannonTicks = 0;
+  protected SimpleInventory inventory = new SimpleInventory(27);
+
+  @Nullable
+  private Identifier lootTableId;
+  private long lootTableSeed;
 
   @Override
   public float getPitch() {
@@ -59,7 +82,7 @@ public class M1A2Entity extends MobEntity {
     return getBodyYaw();
   }
 
-  public void setTankPitch(float pitch) {
+  public void setHeadPitch(float pitch) {
     dataTracker.set(PITCH, pitch);
   }
 
@@ -129,9 +152,9 @@ public class M1A2Entity extends MobEntity {
     World world = getWorld();
     if (this.hasPassenger(source.getAttacker())) {
 
-      if (!world.isClient) {
+      if (!world.isClient && fireTicks <= 0) {
 
-        //fire and set fire ticks
+        fireTicks = 15;
       }
       return false;
     }
@@ -165,14 +188,18 @@ public class M1A2Entity extends MobEntity {
   public void onPassengerLookAround(Entity passenger) {
     if (!this.hasPassengers()) return;
     this.setTurretYaw(passenger.getHeadYaw());
-    setTankPitch(MathHelper.clamp(passenger.getPitch(), -30, 5));
+    setHeadPitch(MathHelper.clamp(passenger.getPitch(), -30, 5));
   }
 
   @Override
   public void tick() {
     World world = getWorld();
+
     if (!world.isClient) {
-      if (hasPassengers()) {
+      if (cannonTicks > 0) {
+        cannonTicks--;
+      }
+      if (!hasPassengers()) {
         movingUp = movingDown = movingLeft = movingRight = false;
       }
       float water = isInFluid() ? .3f : 1;
@@ -185,15 +212,55 @@ public class M1A2Entity extends MobEntity {
         move(MovementType.SELF, new Vec3d(0, 0, .4 * multiplier).rotateY(-getBodyYaw() * 0.017453292F)); // convert to radians
       }
 
+
+      if (!inventory.containsAny(Set.of(ModItems.BULLET))) {
+        fireTicks = 0;
+      }
+      if (fireTicks > 0) {
+        for (int i=0; i<inventory.size(); i++) {
+          ItemStack stack = inventory.getStack(i);
+          if (stack.getItem() == ModItems.BULLET) {
+            inventory.getStack(i).decrement(1);
+            break;
+          }
+        }
+
+        fireTicks--;
+        var shooter = this.getControllingPassenger();
+
+        Vec3d pos = getPos()
+            .add(0, 27.0 / 16, 0)
+            .add(new Vec3d(0, 0, 0.5).rotateY(-getBodyYaw() * 0.017453292F))
+            .add(new Vec3d(0, 0, 12.0 / 16).rotateY(-getHeadYaw() * 0.017453292F))
+            .add(new Vec3d(-3.5 / 16, 0, 18.0 / 16).rotateY(-getHeadYaw() * 0.017453292F).rotateZ(getPitch() * 0.017453292F));
+
+
+        var bullet = new BulletEntity(world, pos.x, pos.y, pos.z, new ItemStack(ModItems.BULLET));
+        if (world instanceof ServerWorld server) {
+          server.spawnParticles(ParticleTypes.FLAME, pos.x, pos.y, pos.z, 1, 0, 0, 0, 0);
+        }
+        bullet.setOwner(shooter);
+
+        bullet.setVelocity(shooter, getPitch(),
+            getHeadYaw(), 0.0F, 15f, 3f);
+        world.spawnEntity(bullet);
+      }
+
     }
 
     setAir(300);
-    super.tick();
-    setBodyYaw(getBodyYaw());
-    setHeadYaw(getHeadYaw());
 
     Entity passenger = getControllingPassenger();
     onPassengerLookAround(getControllingPassenger());
+
+
+    super.tick();
+
+    if (world.isClient) {
+      setHeadYaw(getHeadYaw());
+      setBodyYaw(getBodyYaw());
+    }
+
   }
 
 
@@ -205,10 +272,22 @@ public class M1A2Entity extends MobEntity {
     if (client) return result;
     if (!result.isAccepted()) return result;
 
+
     if (hasPassenger(player)) {
-      player.sendMessage(Text.of("FIRE"));
+      if (cannonTicks <= 0) {
+        cannonTicks = 150;
+
+
+        for (var p : world.getPlayers()) {
+          if (p instanceof ServerPlayerEntity serverPlayer) {
+            float distance = serverPlayer.distanceTo(this);
+            if (distance < 100)
+              serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(ModSounds.TANK_CANNON), SoundCategory.PLAYERS, getX(), getY(), getZ(), 1 - distance / 100, 1, world.getRandom().nextLong()));
+          }
+        }
+      };
     }
-    player.startRiding(this);
+    else player.startRiding(this);
 
 
     return result;
@@ -237,6 +316,7 @@ public class M1A2Entity extends MobEntity {
     nbt.putFloat("HeadYaw", getHeadYaw());
     nbt.putFloat("Pitch", getPitch());
     nbt.putFloat("BodyYaw", getBodyYaw());
+    nbt.put("Inventory", this.inventory.toNbtList());
   }
 
   @Override
@@ -246,9 +326,110 @@ public class M1A2Entity extends MobEntity {
     if (nbt.contains("HeadYaw"))
       setTurretYaw(nbt.getFloat("HeadYaw"));
     if (nbt.contains("Pitch"))
-      setTankPitch(nbt.getFloat("Pitch"));
+      setHeadPitch(nbt.getFloat("Pitch"));
 
     if (nbt.contains("BodyYaw"))
       setTankYaw(nbt.getFloat("BodyYaw"));
+
+    NbtList list = nbt.getList("Inventory", NbtCompound.COMPOUND_TYPE);
+    this.inventory.readNbtList(list);
+  }
+
+  @Override
+  public void openInventory(PlayerEntity player) {
+    World world = getWorld();
+    player.openHandledScreen(this);
+    if (world.isClient) return;
+    this.emitGameEvent(GameEvent.CONTAINER_OPEN, player);
+    AmericaMod.LOGGER.info("Opening inventory");
+  }
+
+  @Override
+  @Nullable
+  public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+    if (this.lootTableId == null || !playerEntity.isSpectator()) {
+      this.generateInventoryLoot(playerInventory.player);
+      return GenericContainerScreenHandler.createGeneric9x3(i, playerInventory, this);
+    }
+    return null;
+  }
+
+  @Override
+  protected void dropInventory() {
+    super.dropInventory();
+    if (inventory == null) return;
+    for (int i = 0; i < inventory.size(); i++) {
+      ItemStack stack = inventory.getStack(i);
+      if (!stack.isEmpty()) {
+        dropStack(stack);
+      }
+    }
+
+  }
+
+  @Nullable
+  @Override
+  public Identifier getLootTableId() {
+    return lootTableId;
+  }
+
+  @Override
+  public void setLootTableId(@Nullable Identifier lootTableId) {
+    this.lootTableId = lootTableId;
+  }
+
+  @Override
+  public void setLootTableSeed(long lootTableSeed) {
+    this.lootTableSeed = lootTableSeed;
+  }
+
+  @Override
+  public DefaultedList<ItemStack> getInventory() {
+    return null;
+  }
+
+  @Override
+  public void resetInventory() {
+    this.inventory.clear();
+  }
+
+  @Override
+  public int size() {
+    return 27;
+  }
+
+  @Override
+  public ItemStack getStack(int slot) {
+    return this.inventory.getStack(slot);
+  }
+
+  @Override
+  public ItemStack removeStack(int slot, int amount) {
+    return this.inventory.removeStack(slot, amount);
+  }
+
+  @Override
+  public ItemStack removeStack(int slot) {
+    return this.inventory.removeStack(slot);
+  }
+
+  @Override
+  public void setStack(int slot, ItemStack stack) {
+    this.inventory.setStack(slot, stack);
+  }
+
+  @Override
+  public void markDirty() {
+
+  }
+
+  @Override
+  public boolean canPlayerUse(PlayerEntity player) {
+    return this.hasPassenger(player);
+  }
+
+  @Override
+  public void clear() {
+    clearInventory();
   }
 }

@@ -1,6 +1,6 @@
 {
   "item.america.bullet": "Bullet",
-  "item.america.shotgun_cartridge": "Shotgun Shell",
+  "item.america.shotgun_shell": "Shotgun Shell",
   "item.america.smoke_grenade": "Smoke Grenade",
   "item.america.grenade": "Grenade",
   "item.america.music_disc_anthem": "Music Disc",
@@ -17,11 +17,13 @@
   "sounds.america.bullet_hit": "Bullet Thuds",
   "sounds.america.smoke_grenade_detonate": "Smoke Grenade Detonates",
   "sounds.america.bullet_success": "Successful Bullet Hit",
+  "sounds.america.tank_cannon": "Tank Cannon Fires",
 
   "entity.america.bullet": "Bullet",
   "entity.america.granade": "Grenade",
     "entity.america.smoke_grenade": "Smoke Grenade",
   "entity.america.m1a2": "M1A2 Abrams",
+
 
   "key.america.reload": "Reload",
   "key.america.zoom": "Zoom Gun",

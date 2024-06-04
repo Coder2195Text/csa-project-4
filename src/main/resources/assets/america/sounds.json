@@ -93,5 +93,9 @@
   "entity.bullet.success": {
     "subtitle": "sounds.america.bullet_success",
     "sounds": [{ "name": "america:entity/bullet/success1" }, { "name": "america:entity/bullet/success2" }, { "name": "america:entity/bullet/success3" }, { "name": "america:entity/bullet/success4" }, { "name": "america:entity/bullet/success5" }]
+  },
+  "entity.tank.cannon": {
+    "subtitle": "sounds.america.tank_cannon",
+    "sounds": [{ "name": "america:entity/tank/cannon" }]
   }
 }

@@ -8,10 +8,14 @@ import mod.coder2195.america.entity.client.ModModelLayers;
 import mod.coder2195.america.event.KeyEventHandler;
 import mod.coder2195.america.networking.ModMessages;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
+
+@Environment(EnvType.CLIENT)
 public class AmericaModClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {

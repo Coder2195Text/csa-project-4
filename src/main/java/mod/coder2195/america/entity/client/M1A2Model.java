@@ -17,7 +17,7 @@ public class M1A2Model<T extends M1A2Entity> extends SinglePartEntityModel<T> {
   public M1A2Model(ModelPart root) {
     this.tank = root.getChild("over_power");
     this.turret = tank.getChild("ulra_super").getChild("super_group").getChild("body_main").getChild("turret");
-    this.barrel = turret.getChild("gun").getChild("barrel");
+    this.barrel = turret.getChild("gun");
   }
 
    @SuppressWarnings("unused")
@@ -1001,8 +1001,6 @@ public class M1A2Model<T extends M1A2Entity> extends SinglePartEntityModel<T> {
   @Override
   public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     this.getPart().traverse().forEach(ModelPart::resetTransform);
-
-
 
     this.turret.yaw = netHeadYaw * 0.017453292F; // 0.017453292F = 1 degree
 
