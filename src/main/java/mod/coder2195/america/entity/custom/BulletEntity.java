@@ -1,9 +1,11 @@
 package mod.coder2195.america.entity.custom;
 
+import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.entity.ModEntities;
 import mod.coder2195.america.item.ModItems;
 import mod.coder2195.america.sound.ModSounds;
 import mod.coder2195.america.effects.ModDamageTypes;
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,12 +22,15 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public class BulletEntity extends PersistentProjectileEntity {
   private final static ItemStack DEFAULT_STACK = new ItemStack(ModItems.BULLET);
   private float damage = 8;
+  private double baseSpeed = 1.5;
   private boolean despawn = false;
   private Vec3d before = this.getPos();
 
@@ -40,6 +45,9 @@ public class BulletEntity extends PersistentProjectileEntity {
     return ModSounds.BULLET_HIT;
   }
 
+  public void setBaseSpeed(double baseSpeed) {
+    this.baseSpeed = baseSpeed;
+  }
 
   @Override
   protected void onBlockHit(BlockHitResult blockHitResult) {
@@ -108,6 +116,7 @@ public class BulletEntity extends PersistentProjectileEntity {
 
     super.tick();
 
+
     before = after;
   }
 
@@ -118,6 +127,7 @@ public class BulletEntity extends PersistentProjectileEntity {
     Entity entity = entityHitResult.getEntity();
 
     Entity owner = this.getOwner();
+    double speed = this.getVelocity().length();
 
     DamageSource damageSource;
     if (owner == null) {
@@ -126,21 +136,36 @@ public class BulletEntity extends PersistentProjectileEntity {
       damageSource = ModDamageTypes.of(getWorld(),
           owner.distanceTo(entity) > 48 ? ModDamageTypes.SNIPER_BULLET : ModDamageTypes.BULLET, owner);
 
-
-
       if (owner instanceof LivingEntity livingEntity) {
         livingEntity.onAttacking(entity);
       }
       if (owner instanceof ServerPlayerEntity player) {
-        Vec3d pos = player.getPos();
-        player.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(ModSounds.BULLET_SUCCESS), SoundCategory.PLAYERS, pos.x, pos.y, pos.z , 1, 1, world.getRandom().nextLong()));
+        Vec3d playerPos = player.getPos();
+        player.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(ModSounds.BULLET_SUCCESS), SoundCategory.PLAYERS, playerPos.x, playerPos.y, playerPos.z , 1, 1, world.getRandom().nextLong()));
       }
     }
+    Vec3d rayPos = before;
+    Vec3d velocity = getVelocity().multiply(0.5);
+    // perform binary search using raycasts to narrow down the exact position of the hit
+    // repeat 10 times
+    for (int i = 0; i < 10; i++) {
+      RaycastContext raycastContext = new RaycastContext(rayPos, rayPos.add(velocity), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this);
+      HitResult hitResult = world.raycast(raycastContext);
+      if (hitResult.getType() == HitResult.Type.MISS) {
+        rayPos = raycastContext.getEnd();
+      }
+
+      velocity = velocity.multiply(0.5);
+    }
+
+    setPos(rayPos.x, rayPos.y, rayPos.z);
 
 
-    spawnParticles(entityHitResult.getPos());
+    entity.damage(damageSource, (float) (speed / baseSpeed) * damage);
 
-    this.discard();
+    spawnParticles(rayPos);
+
+   this.discard();
   }
 
   @Override
@@ -151,6 +176,7 @@ public class BulletEntity extends PersistentProjectileEntity {
     nbt.putDouble("beforeX", before.x);
     nbt.putDouble("beforeY", before.y);
     nbt.putDouble("beforeZ", before.z);
+    nbt.putDouble("baseSpeed", baseSpeed);
   }
 
   @Override
@@ -161,5 +187,6 @@ public class BulletEntity extends PersistentProjectileEntity {
 
     despawn = nbt.getBoolean("despawn");
     before = new Vec3d(nbt.getDouble("beforeX"), nbt.getDouble("beforeY"), nbt.getDouble("beforeZ"));
+baseSpeed = nbt.getDouble("baseSpeed");
   }
 }

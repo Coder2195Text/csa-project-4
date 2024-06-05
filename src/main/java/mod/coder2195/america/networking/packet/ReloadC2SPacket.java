@@ -31,8 +31,17 @@ public class ReloadC2SPacket {
 
       // early return for if the gun is already full, reloading, or out of bullets,
       // respectively
-      if (ammo == capacity || currentTime - reloadTime < gun.RELOAD_TIME * 20 || inventory.count(gun.AMMO) == 0)
+
+      boolean creative = player.getAbilities().creativeMode;
+
+      if (ammo == capacity || currentTime - reloadTime < gun.RELOAD_TIME * 20 || (inventory.count(gun.AMMO) == 0 && !creative))
         return;
+
+      if (creative) {
+        tag.putInt("ammo", capacity);
+        tag.putLong("reloadTime", currentTime);
+        return;
+      }
 
       int target = capacity - ammo;
 

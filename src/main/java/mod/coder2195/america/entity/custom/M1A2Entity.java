@@ -62,6 +62,7 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
   private int cannonTicks = 0;
   protected SimpleInventory inventory = new SimpleInventory(27);
 
+
   @Nullable
   private Identifier lootTableId;
   private long lootTableSeed;
@@ -232,12 +233,16 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
         move(MovementType.SELF, new Vec3d(0, 0, .4 * multiplier).rotateY(-getBodyYaw() * 0.017453292F)); // convert to radians
       }
 
+      boolean creative = getControllingPassenger() instanceof PlayerEntity player && player.getAbilities().creativeMode;
 
-      if (!inventory.containsAny(Set.of(ModItems.BULLET))) {
+
+      if (!inventory.containsAny(Set.of(ModItems.BULLET)) && !creative) {
         fireTicks = 0;
       }
       if (fireTicks > 0) {
+
         for (int i=0; i<inventory.size(); i++) {
+          if (creative) break;
           ItemStack stack = inventory.getStack(i);
           if (stack.getItem() == ModItems.BULLET) {
             inventory.getStack(i).decrement(1);
@@ -251,8 +256,8 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
         Vec3d pos = getPos()
             .add(0, 27.0 / 16, 0)
             .add(new Vec3d(0, 0, 0.5).rotateY(-getBodyYaw() * 0.017453292F))
-            .add(new Vec3d(0, 0, 12.0 / 16).rotateY(-getHeadYaw() * 0.017453292F))
-            .add(new Vec3d(-3.5 / 16, 0, 18.0 / 16).rotateY(-getHeadYaw() * 0.017453292F).rotateZ(getPitch() * 0.017453292F));
+            .add(new Vec3d(0, 0, 20.0 / 16).rotateY(-getHeadYaw() * 0.017453292F))
+            .add(new Vec3d(-3.5 / 16, 0, 9.0 / 16).rotateX(-getPitch() * 0.017453292F).rotateY(-getHeadYaw() * 0.017453292F));
 
 
         var bullet = new BulletEntity(world, pos.x, pos.y, pos.z, new ItemStack(ModItems.BULLET));
@@ -263,8 +268,13 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
 
         bullet.setVelocity(shooter, getPitch(),
             getHeadYaw(), 0.0F, 15f, 3f);
+        bullet.setBaseSpeed(15);
         world.spawnEntity(bullet);
       }
+
+    } else {
+
+
 
     }
 
@@ -300,8 +310,8 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
         Vec3d pos = getPos()
             .add(0, 27.0 / 16, 0)
             .add(new Vec3d(0, 0, 0.5).rotateY(-getBodyYaw() * 0.017453292F))
-            .add(new Vec3d(0, 0, 12.0 / 16).rotateY(-getHeadYaw() * 0.017453292F))
-            .add(new Vec3d(2.0 / 16, 0, 54.0 / 16).rotateY(-getHeadYaw() * 0.017453292F).rotateZ(getPitch() * 0.017453292F));
+            .add(new Vec3d(0, 0, 20.0 / 16).rotateY(-getHeadYaw() * 0.017453292F))
+            .add(new Vec3d(1.0/16, 0, 45.0 / 16).rotateX(-getPitch() * 0.017453292F).rotateY(-getHeadYaw() * 0.017453292F));
 
         if (world instanceof ServerWorld server) {
           server.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 1, 0, 0, 0, 0);

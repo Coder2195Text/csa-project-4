@@ -102,6 +102,7 @@ public abstract class Gun extends Item {
   public void action(World world, PlayerEntity user, Hand hand) {
 
     BulletEntity bulletEntity = new BulletEntity(world, user, DAMAGE, SPEED);
+    bulletEntity.setBaseSpeed(SPEED);
 
     bulletEntity.setVelocity(user, user.getPitch(),
         user.getYaw(), 0.0F, SPEED, VARIANCE);
