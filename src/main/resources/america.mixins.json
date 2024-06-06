@@ -7,7 +7,8 @@
     "GunPoseMixin",
     "CooldownMixin",
     "GunZoomMixin",
-    "GunZoomFOVMixin"
+    "GunZoomFOVMixin",
+    "BackgroundEffectsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

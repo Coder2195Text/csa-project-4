@@ -21,7 +21,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
         .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
         .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
-
         .offerTo(exporter);
 
     ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.BURGER, 1).pattern("B").pattern("F").pattern("B")

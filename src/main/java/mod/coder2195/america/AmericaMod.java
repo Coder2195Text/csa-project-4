@@ -1,5 +1,6 @@
 package mod.coder2195.america;
 
+import mod.coder2195.america.effects.ModStatusEffects;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -24,11 +25,11 @@ public class AmericaMod implements ModInitializer {
 		// Proceed with mild caution.
 
 		ModItemGroups.registerItemGroups();
+		ModStatusEffects.registerStatusEffects();
 		ModItems.registerModItems();
 		ModSounds.registerModSounds();
 		ModBlocks.registerModBlocks();
 		ModEntities.registerEntities();
-
 		ModMessages.registerC2SPackets();
 	}
 }

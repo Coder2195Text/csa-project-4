@@ -48,6 +48,7 @@
   "death.attack.sniper": "%s was sniped by %s",
   "death.attack.sniper.item": "%s was sniped by %s using %s",
   "death.attack.sniper.player": "%s was sniped whilst trying to escape %s",
-  "death.attack.sniper.player.item": "%s was sniped whilst trying to escape %s using %s"
+  "death.attack.sniper.player.item": "%s was sniped whilst trying to escape %s using %s",
+  "effect.america.dazzled": "Dazzled"
 
 }

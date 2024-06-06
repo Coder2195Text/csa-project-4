@@ -18,10 +18,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.entity.vehicle.VehicleInventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -45,8 +43,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 public class M1A2Entity extends MobEntity implements RideableInventory, VehicleInventory {
