@@ -30,7 +30,10 @@ public class AmericaModClient implements ClientModInitializer {
     EntityRendererRegistry.register(ModEntities.BULLET, BulletEntityRenderer::new);
     EntityRendererRegistry.register(ModEntities.SMOKE_GRENADE, FlyingItemEntityRenderer::new);
     EntityRendererRegistry.register(ModEntities.GRENADE, FlyingItemEntityRenderer::new);
+    EntityRendererRegistry.register(ModEntities.INCENDIARY_GRENADE, FlyingItemEntityRenderer::new);
+    EntityRendererRegistry.register(ModEntities.FLASHBANG, FlyingItemEntityRenderer::new);
     EntityRendererRegistry.register(ModEntities.M1A2, M1A2Renderer::new);
+
 
     EntityModelLayerRegistry.registerModelLayer(ModModelLayers.M1A2, M1A2Model::getTexturedModelData);
   }

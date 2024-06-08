@@ -1,18 +1,31 @@
 {
   "music.anthem": {
     "subtitle": "sounds.america.anthem",
-    "sounds": [{ "name": "america:music/anthem", "stream": true }]
+    "sounds": [
+      {
+        "name": "america:music/anthem",
+        "stream": true
+      }
+    ]
   },
   "item.assault_rifle.fire": {
     "subtitle": "sounds.america.fire",
     "sounds": [
-      { "name": "america:item/assault_rifle/fire1" },
-      { "name": "america:item/assault_rifle/fire2" }
+      {
+        "name": "america:item/assault_rifle/fire1"
+      },
+      {
+        "name": "america:item/assault_rifle/fire2"
+      }
     ]
   },
   "item.assault_rifle.reload": {
     "subtitle": "sounds.america.reload",
-    "sounds": [{ "name": "america:item/assault_rifle/reload" }]
+    "sounds": [
+      {
+        "name": "america:item/assault_rifle/reload"
+      }
+    ]
   },
   "item.sniper.fire": {
     "subtitle": "sounds.america.fire",
@@ -84,18 +97,62 @@
   },
   "entity.bullet.hit": {
     "subtitle": "sounds.america.bullet_hit",
-    "sounds": [{ "name": "america:entity/bullet/hit" }]
+    "sounds": [
+      {
+        "name": "america:entity/bullet/hit"
+      }
+    ]
   },
   "entity.smoke_grenade.detonate": {
     "subtitle": "sounds.america.smoke_grenade_detonate",
-    "sounds": [{ "name": "america:entity/grenades/smoke_grenade" }]
+    "sounds": [
+      {
+        "name": "america:entity/grenades/smoke_grenade"
+      }
+    ]
   },
   "entity.bullet.success": {
     "subtitle": "sounds.america.bullet_success",
-    "sounds": [{ "name": "america:entity/bullet/success1" }, { "name": "america:entity/bullet/success2" }, { "name": "america:entity/bullet/success3" }, { "name": "america:entity/bullet/success4" }, { "name": "america:entity/bullet/success5" }]
+    "sounds": [
+      {
+        "name": "america:entity/bullet/success1"
+      },
+      {
+        "name": "america:entity/bullet/success2"
+      },
+      {
+        "name": "america:entity/bullet/success3"
+      },
+      {
+        "name": "america:entity/bullet/success4"
+      },
+      {
+        "name": "america:entity/bullet/success5"
+      }
+    ]
   },
   "entity.tank.cannon": {
     "subtitle": "sounds.america.tank_cannon",
-    "sounds": [{ "name": "america:entity/tank/cannon" }]
+    "sounds": [
+      {
+        "name": "america:entity/tank/cannon"
+      }
+    ]
+  },
+  "item.grenade.pin": {
+    "subtitle": "sounds.america.grenade_pin",
+    "sounds": [
+      {
+        "name": "america:item/grenade/pin"
+      }
+    ]
+  },
+  "entity.flashbang.detonate": {
+    "subtitle": "sounds.america.flashbang_detonate",
+    "sounds": [
+      {
+        "name": "america:item/grenade/flashbang"
+      }
+    ]
   }
 }

@@ -1,13 +1,13 @@
 package mod.coder2195.america.item.custom;
 
 import mod.coder2195.america.AmericaMod;
+import mod.coder2195.america.sound.ModSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -45,7 +45,7 @@ public class Grenade extends Item {
 
     world.playSound(null, user.getX(), user.getY(), user.getZ(),
         // replace with chucking sound when i get one
-        SoundEvents.ENTITY_SNOWBALL_THROW,
+        ModSounds.GRENADE_PIN,
         // replace with chucking sound when i get one
         SoundCategory.NEUTRAL, 0.5F, 1F);
 

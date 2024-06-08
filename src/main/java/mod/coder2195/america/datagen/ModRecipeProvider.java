@@ -53,5 +53,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
         .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
         .offerTo(exporter);
+
+    ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.INCENDIARY_GRENADE, 1)
+        .pattern(" LN").pattern("IMI").pattern("IMI")
+        .input('L', Items.LEVER).input('N', Items.IRON_NUGGET).input('I', Items.IRON_INGOT).input('M', Items.LAVA_BUCKET)
+        .criterion(hasItem(Items.LEVER), conditionsFromItem(Items.LEVER))
+        .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
+        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+        .criterion(hasItem(Items.LAVA_BUCKET), conditionsFromItem(Items.LAVA_BUCKET))
+        .offerTo(exporter);
   }
 }

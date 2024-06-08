@@ -2,7 +2,9 @@ package mod.coder2195.america.item;
 
 import mod.coder2195.america.AmericaMod;
 import mod.coder2195.america.blocks.ModBlocks;
+import mod.coder2195.america.entity.custom.FlashbangEntity;
 import mod.coder2195.america.entity.custom.GrenadeEntity;
+import mod.coder2195.america.entity.custom.IncendiaryGrenadeEntity;
 import mod.coder2195.america.entity.custom.SmokeGrenadeEntity;
 import mod.coder2195.america.item.custom.Gun;
 import mod.coder2195.america.item.custom.Shotgun;
@@ -100,6 +102,7 @@ public class ModItems {
 
   public static final Item[] GUNS = new Item[] { AR15, M24, DEAGLE, AK47, M4A1, MINIGUN, MOSS590 };
 
+
   public static final Item COMMUNIST_BADGE = registerItem("communist_badge", new Item(new FabricItemSettings()));
   public static final Item AMERICAN_BADGE = registerItem("american_badge", new Item(new FabricItemSettings()));
 
@@ -113,6 +116,20 @@ public class ModItems {
       GRENADE = GrenadeEntity.class;
     }
   });
+
+  public static Item INCENDIARY_GRENADE = registerItem("incendiary_grenade", new Grenade() {
+    {
+      GRENADE = IncendiaryGrenadeEntity.class;
+    }
+  });
+
+  public static Item FLASHBANG = registerItem("flashbang", new Grenade() {
+    {
+      GRENADE = FlashbangEntity.class;
+    }
+  });
+
+  public static final Item[] GRENADES = new Item[] { SMOKE_GRENADE, GRENADE, INCENDIARY_GRENADE, FLASHBANG };
 
   private static void addToFood(FabricItemGroupEntries entries) {
     entries.add(BURGER);

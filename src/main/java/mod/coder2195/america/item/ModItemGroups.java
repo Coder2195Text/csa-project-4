@@ -22,8 +22,9 @@ public class ModItemGroups {
             for (Item gun : ModItems.GUNS) {
               entries.add(gun);
             }
-            entries.add(ModItems.SMOKE_GRENADE);
-            entries.add(ModItems.GRENADE);
+            for (Item grenade : ModItems.GRENADES) {
+              entries.add(grenade);
+            }
           }).build());
 
   public static void registerItemGroups() {

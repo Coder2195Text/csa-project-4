@@ -28,8 +28,9 @@ public class ModModelProvider extends FabricModelProvider {
     itemModelGenerator.register(ModItems.COMMUNIST_BADGE, Models.GENERATED);
     itemModelGenerator.register(ModItems.AMERICAN_BADGE, Models.GENERATED);
     itemModelGenerator.register(ModItems.SHOTGUN_SHELL, Models.GENERATED);
-    itemModelGenerator.register(ModItems.SMOKE_GRENADE, Models.GENERATED);
-    itemModelGenerator.register(ModItems.GRENADE, Models.GENERATED);
+    for (var grenade : ModItems.GRENADES) {
+      itemModelGenerator.register(grenade, Models.GENERATED);
+    }
 
   }
 

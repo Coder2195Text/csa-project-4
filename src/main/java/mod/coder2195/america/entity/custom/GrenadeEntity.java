@@ -33,7 +33,7 @@ public class GrenadeEntity extends ThrownItemEntity {
 
     World world = this.getWorld();
     if (world.isClient) return;
-    world.createExplosion(this, this.getX(), this.getBodyY(0.0625D), this.getZ(), 4.0F, true, World.ExplosionSourceType.MOB);
+    world.createExplosion(this, this.getX(), this.getBodyY(0.0625D), this.getZ(), 4.0F, false, World.ExplosionSourceType.MOB);
     kill();
   }
 

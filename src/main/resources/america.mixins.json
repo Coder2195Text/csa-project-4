@@ -2,13 +2,15 @@
   "required": true,
   "package": "mod.coder2195.america.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "FireMixin"
+  ],
   "client": [
     "GunPoseMixin",
     "CooldownMixin",
     "GunZoomMixin",
     "GunZoomFOVMixin",
-    "BackgroundEffectsMixin"
+    "DazzledEffectMixin"
   ],
   "injectors": {
     "defaultRequire": 1

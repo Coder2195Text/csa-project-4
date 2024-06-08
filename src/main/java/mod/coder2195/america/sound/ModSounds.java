@@ -29,6 +29,9 @@ public class ModSounds {
 
   public static final SoundEvent TANK_CANNON = registerSoundEvent("entity.tank.cannon");
 
+  public static final SoundEvent FLASHBANG_DETONATE = registerSoundEvent("entity.flashbang.detonate");
+  public static final SoundEvent GRENADE_PIN = registerSoundEvent("item.grenade.pin");
+
   public static SoundEvent registerSoundEvent(String name) {
     Identifier id = new Identifier(AmericaMod.MOD_ID, name);
     return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
