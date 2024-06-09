@@ -23,7 +23,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
   @Override
   public void generateAdvancement(Consumer<AdvancementEntry> consumer) {
-    AdvancementEntry rootAdvancement = Advancement.Builder.create()
+    AdvancementEntry rootAdvancement = Builder.create()
         .display(
             ModItems.AMERICAN_BADGE, // The display icon
             Text.literal("America"), // The title
@@ -37,7 +37,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         .criterion("got_bullet", InventoryChangedCriterion.Conditions.items(ModItems.BULLET))
         .build(consumer, "america/root");
 
-    Builder gunAdvancementBuilder = Advancement.Builder.create().parent(rootAdvancement)
+    Builder gunAdvancementBuilder = Builder.create().parent(rootAdvancement)
         .display(
             ModItems.BULLET, // The display icon
             Text.literal("2nd Amendment Rights"), // The title
@@ -65,7 +65,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     AdvancementEntry gunAdvancementEntry = gunAdvancementBuilder.build(consumer, "america/got_gun");
 
-    Builder allGunsBuilder = Advancement.Builder.create().parent(gunAdvancementEntry)
+    Builder allGunsBuilder = Builder.create().parent(gunAdvancementEntry)
         .display(
             ModItems.AR15, // The display icon
             Text.literal("Quite the Shooting Collection"), // The title
@@ -84,7 +84,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     allGunsBuilder.build(consumer, "america/got_all_guns");
 
-    Advancement.Builder.create().parent(gunAdvancementEntry)
+    Builder.create().parent(gunAdvancementEntry)
         .display(
             ModItems.COMMUNIST_BADGE, // The display icon
             Text.literal("Traitor to American Freedom"), // The title

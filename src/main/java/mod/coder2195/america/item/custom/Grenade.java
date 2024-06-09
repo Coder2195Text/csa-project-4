@@ -23,7 +23,7 @@ public class Grenade extends Item {
   }
 
   public Grenade() {
-    super(new Item.Settings().maxCount(16));
+    super(new Settings().maxCount(16));
   }
 
   @Override

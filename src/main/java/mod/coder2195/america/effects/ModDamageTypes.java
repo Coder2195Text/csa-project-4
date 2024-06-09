@@ -1,11 +1,5 @@
 package mod.coder2195.america.effects;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.jetbrains.annotations.Nullable;
-
 import mod.coder2195.america.AmericaMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageScaling;
@@ -16,6 +10,11 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModDamageTypes {
   private static final Map<RegistryKey<DamageType>, DamageType> DAMAGE_TYPES = new HashMap<>();
@@ -23,6 +22,8 @@ public class ModDamageTypes {
   public static final RegistryKey<DamageType> BULLET = register(new DamageType("bullet", DamageScaling.NEVER, 0.1f));
   public static final RegistryKey<DamageType> SNIPER_BULLET = register(
       new DamageType("sniper", DamageScaling.NEVER, 0.1f));
+  public static final RegistryKey<DamageType> TANK_SHELL = register(
+      new DamageType("tank_shell", DamageScaling.NEVER, 0.1f));
 
   public static DamageSource of(World world, RegistryKey<DamageType> key) {
     return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(key));
@@ -42,6 +43,7 @@ public class ModDamageTypes {
   public static void init(Registerable<DamageType> registerable) {
     registerable.register(BULLET, DAMAGE_TYPES.get(BULLET));
     registerable.register(SNIPER_BULLET, DAMAGE_TYPES.get(SNIPER_BULLET));
+    registerable.register(TANK_SHELL, DAMAGE_TYPES.get(TANK_SHELL));
   }
 
   public static Collection<DamageType> sources() {

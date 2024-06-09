@@ -300,8 +300,18 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
 
 
     if (hasPassenger(player)) {
-      if (cannonTicks <= 0) {
+      if (cannonTicks <= 0 && (inventory.containsAny(Set.of(ModItems.TANK_SHELL)) || player.getAbilities().creativeMode)) {
         cannonTicks = 150;
+
+        if (!player.getAbilities().creativeMode) {
+          for (int i=0; i<inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i);
+            if (stack.getItem() == ModItems.TANK_SHELL) {
+              inventory.getStack(i).decrement(1);
+              break;
+            }
+          }
+        }
 
         Vec3d pos = getPos()
             .add(0, 27.0 / 16, 0)
@@ -311,6 +321,11 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
 
         if (world instanceof ServerWorld server) {
           server.spawnParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 1, 0, 0, 0, 0);
+          TankShellEntity shell = new TankShellEntity(world, pos.x, pos.y, pos.z, new ItemStack(ModItems.TANK_SHELL));
+          shell.setOwner(player);
+          shell.setVelocity(player, getPitch(), getHeadYaw(), 0.0F, 15f, 0.1f);
+
+          world.spawnEntity(shell);
         }
 
         for (var p : world.getPlayers()) {

@@ -129,6 +129,8 @@ public class ModItems {
     }
   });
 
+  public static Item TANK_SHELL = registerItem("tank_shell", new Item(new FabricItemSettings()));
+
   public static final Item[] GRENADES = new Item[] { SMOKE_GRENADE, GRENADE, INCENDIARY_GRENADE, FLASHBANG };
 
   private static void addToFood(FabricItemGroupEntries entries) {

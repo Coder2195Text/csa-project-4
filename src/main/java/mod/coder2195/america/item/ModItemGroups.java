@@ -25,6 +25,7 @@ public class ModItemGroups {
             for (Item grenade : ModItems.GRENADES) {
               entries.add(grenade);
             }
+            entries.add(ModItems.TANK_SHELL);
           }).build());
 
   public static void registerItemGroups() {

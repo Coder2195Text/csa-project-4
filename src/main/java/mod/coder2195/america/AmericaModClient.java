@@ -1,10 +1,7 @@
 package mod.coder2195.america;
 
 import mod.coder2195.america.entity.ModEntities;
-import mod.coder2195.america.entity.client.BulletEntityRenderer;
-import mod.coder2195.america.entity.client.M1A2Model;
-import mod.coder2195.america.entity.client.M1A2Renderer;
-import mod.coder2195.america.entity.client.ModModelLayers;
+import mod.coder2195.america.entity.client.*;
 import mod.coder2195.america.event.KeyEventHandler;
 import mod.coder2195.america.networking.ModMessages;
 import net.fabricmc.api.ClientModInitializer;
@@ -29,6 +26,7 @@ public class AmericaModClient implements ClientModInitializer {
 
     EntityRendererRegistry.register(ModEntities.BULLET, BulletEntityRenderer::new);
     EntityRendererRegistry.register(ModEntities.SMOKE_GRENADE, FlyingItemEntityRenderer::new);
+    EntityRendererRegistry.register(ModEntities.TANK_SHELL, TankShellEntityRenderer::new);
     EntityRendererRegistry.register(ModEntities.GRENADE, FlyingItemEntityRenderer::new);
     EntityRendererRegistry.register(ModEntities.INCENDIARY_GRENADE, FlyingItemEntityRenderer::new);
     EntityRendererRegistry.register(ModEntities.FLASHBANG, FlyingItemEntityRenderer::new);

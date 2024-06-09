@@ -43,6 +43,11 @@ public class ModEntities {
       FabricEntityTypeBuilder.<M1A2Entity>create(SpawnGroup.MISC, M1A2Entity::new)
           .dimensions(EntityDimensions.fixed(4f, 2.5f)).build());
 
+  public static final EntityType<TankShellEntity> TANK_SHELL = Registry.register(Registries.ENTITY_TYPE,
+      new Identifier(AmericaMod.MOD_ID, "tank_shell"),
+      FabricEntityTypeBuilder.<TankShellEntity>create(SpawnGroup.MISC, TankShellEntity::new)
+          .dimensions(EntityDimensions.fixed(0.25f, 0.25f)).build());
+
 
 
 
