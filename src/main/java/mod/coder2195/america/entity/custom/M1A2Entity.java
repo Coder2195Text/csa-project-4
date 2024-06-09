@@ -61,7 +61,6 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
 
   @Nullable
   private Identifier lootTableId;
-  private long lootTableSeed;
 
   @Override
   public float getPitch() {
@@ -269,15 +268,14 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
       }
 
     } else {
-
-
+      // TODO: idk
 
     }
 
     setAir(300);
 
     Entity passenger = getControllingPassenger();
-    onPassengerLookAround(getControllingPassenger());
+    onPassengerLookAround(passenger);
 
 
     super.tick();
@@ -335,7 +333,7 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
               serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(Registries.SOUND_EVENT.getEntry(ModSounds.TANK_CANNON), SoundCategory.PLAYERS, getX(), getY(), getZ(), 1 - distance / 100, 1, world.getRandom().nextLong()));
           }
         }
-      };
+      }
     }
     else player.startRiding(this);
 
@@ -415,12 +413,6 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
       }
     }
 
-  }
-
-  @Nullable
-  @Override
-  public Identifier getLootTableId() {
-    return lootTableId;
   }
 
   @Override
