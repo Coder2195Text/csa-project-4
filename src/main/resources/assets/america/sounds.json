@@ -155,4 +155,12 @@
       }
     ]
   }
+, "entity.tank.machine_gun": {
+    "subtitle": "sounds.america.tank_machine_gun",
+    "sounds": [
+      {
+        "name": "america:entity/tank/machine_gun"
+      }
+    ]
+  }
 }

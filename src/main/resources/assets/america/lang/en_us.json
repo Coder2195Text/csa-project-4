@@ -51,5 +51,6 @@
   "death.attack.sniper.player.item": "%s was sniped whilst trying to escape %s using %s",
   "effect.america.dazzled": "Dazzled",
   "sounds.america.flashbang_detonate": "Flashbang Detonates",
-  "sounds.america.grenade_pin": "Grenade Pin Pulled"
+  "sounds.america.grenade_pin": "Grenade Pin Pulled",
+  "sounds.america.tank_machine_gun": "Tank Machine Gun Fires"
 }

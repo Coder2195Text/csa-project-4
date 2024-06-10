@@ -28,6 +28,7 @@ public class ModSounds {
   public static final SoundEvent BULLET_SUCCESS = registerSoundEvent("entity.bullet.success");
 
   public static final SoundEvent TANK_CANNON = registerSoundEvent("entity.tank.cannon");
+  public static final SoundEvent TANK_MACHINE_GUN = registerSoundEvent("entity.tank.machine_gun");
 
   public static final SoundEvent FLASHBANG_DETONATE = registerSoundEvent("entity.flashbang.detonate");
   public static final SoundEvent GRENADE_PIN = registerSoundEvent("item.grenade.pin");

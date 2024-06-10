@@ -159,6 +159,7 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
       if (!world.isClient && fireTicks <= 0) {
 
         fireTicks = 15;
+        world.playSound(this, this.getBlockPos(), ModSounds.TANK_MACHINE_GUN, SoundCategory.PLAYERS, 1, 1);
       }
       return false;
     }
@@ -286,7 +287,6 @@ public class M1A2Entity extends MobEntity implements RideableInventory, VehicleI
     }
 
   }
-
 
   @Override
   public ActionResult interactMob(PlayerEntity player, Hand hand) {

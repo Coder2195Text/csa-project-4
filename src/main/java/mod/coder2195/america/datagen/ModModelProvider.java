@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
-import net.minecraft.item.Item;
 
 public class ModModelProvider extends FabricModelProvider {
 
@@ -32,6 +31,7 @@ public class ModModelProvider extends FabricModelProvider {
     for (var grenade : ModItems.GRENADES) {
       itemModelGenerator.register(grenade, Models.GENERATED);
     }
+    itemModelGenerator.register(ModItems.M1A2, Models.GENERATED);
     itemModelGenerator.register(ModItems.TANK_SHELL, Models.GENERATED);
 
   }
