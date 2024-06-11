@@ -33,7 +33,6 @@ public class ModModelProvider extends FabricModelProvider {
     }
     itemModelGenerator.register(ModItems.M1A2, Models.GENERATED);
     itemModelGenerator.register(ModItems.TANK_SHELL, Models.GENERATED);
-
   }
 
 }
